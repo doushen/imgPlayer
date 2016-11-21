@@ -21,6 +21,8 @@ function loadApp() {
 
 		width: 1000,
 
+		// display: "single",
+
 		// direction: 'rtl',
 
 		// Magazine height
@@ -536,6 +538,7 @@ function resizeViewport() {
 	zoom('resize');
 
 	$('.thumbnails').css({height:height});
+	$(".toolbarButtonSiderContainer").css({width:$('.thumbnails').width()});
 
 	if ($('.magazine').turn('zoom') == 1) {
 		var bound = calculateBound({

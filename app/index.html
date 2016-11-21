@@ -21,28 +21,36 @@
     <!--[if lt IE 10]>
       <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-    <div id="toolbars" class="toolbars">
-        <button id="sidebarToggle" class="toolbarButton" title="切换侧栏"  onclick="siderToggle();">
-        </button>
-        
-        <button id="presentationMode" class="toolbarButton presentationMode hiddenLargeView" title="切换到演示模式" onclick="fullScreenToggle();" tabindex="31">
-        </button>
 
-        <div class="toolbarButtonSpacer toolbarButton"></div>
-
-        <button class="toolbarButton pageDown" onclick="turnNext();" title="下一页" id="next">
-        </button>
-        <button class="toolbarButton pageUp" onclick="turnPrevious();" title="上一页" id="previous" >
-        </button>
-        <input type="number" id="pageNumber" class="toolbarField pageNumber toolbarButton" value="1" size="4" min="1" tabindex="15" max="9999999"  onkeypress="turnPage(this.value);">
-        <label id="pageNumberLabel" class="toolbarLabel toolbarButton" for="pageNumber">页面：</label> 
-    </div>
 
     <div id="canvas">
-        <div class="magazine-viewport">
-        <div class="zoom-icon zoom-icon-in"></div>
+        <div id="toolbars" class="toolbars">
+                <div class="toolbarButtonSiderContainer toolbarButton">
+                    <button id="viewThumbnail" class="toolbarButton group toggled" title="显示缩略图" tabindex="2">
+                    </button>
+                    <button id="viewOutline" class="toolbarButton group" title="显示文档大纲" tabindex="3">
+                    </button>
+                </div>
+                <button id="sidebarToggle" class="toolbarButton" title="切换侧栏"  onclick="siderToggle();">
+                </button>
+                
+                <button id="presentationMode" class="toolbarButton presentationMode hiddenLargeView" title="切换到演示模式" onclick="fullScreenToggle();" tabindex="31">
+                </button>
+
+                <div class="toolbarButtonSpacer toolbarButton"></div>
+
+                <button class="toolbarButton pageDown" onclick="turnNext();" title="下一页" id="next">
+                </button>
+                <button class="toolbarButton pageUp" onclick="turnPrevious();" title="上一页" id="previous" >
+                </button>
+                <input type="number" id="pageNumber" class="toolbarField pageNumber toolbarButton" value="1" size="4" min="1" tabindex="15" max="9999999"  onkeypress="turnPage(this.value);">
+                <label id="pageNumberLabel" class="toolbarLabel toolbarButton" for="pageNumber">页面：</label> 
+            </div>
+        <div class="magazine-viewport">        
             <div class="container">
+
                 <div class="magazine">
+
                     <!-- Next button -->
                     <div ignore="1" class="next-button"></div>
                     <!-- Previous button -->

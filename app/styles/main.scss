@@ -10,6 +10,7 @@ body {
     background-color: #474747;
     .toolbarButton {
         float: right;
+        display: inline-block;
     }
     .toolbarButton#sidebarToggle {
         border: 0;
@@ -44,6 +45,17 @@ body {
     }
     .toolbarField {
       margin-top:5px;
+    }
+    .toolbarButton#presentationMode {
+        border: 0;
+        width: 32px;
+        height: 25px;
+        background: transparent url(../images/toolbarButton-presentationMode.png) center no-repeat;
+    }
+    .toolbarButtonSpacer {
+        width: 30px;
+        display: inline-block;
+        height: 1px;
     }
 }
 

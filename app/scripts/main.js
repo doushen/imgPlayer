@@ -1,3 +1,6 @@
+/*
+ *	加载
+ */
 function loadApp() {
 	$('#canvas').fadeIn(1000);
 
@@ -138,7 +141,7 @@ function loadApp() {
 
 			zoomIn: function() {
 
-				$('.thumbnails').hide();
+				//$('.thumbnails').hide();
 				$('.made').hide();
 				$('.magazine').removeClass('animated').addClass('zoom-in');
 				$('.zoom-icon').removeClass('zoom-icon-in').addClass('zoom-icon-out');
@@ -159,7 +162,7 @@ function loadApp() {
 			zoomOut: function() {
 
 				$('.exit-message').hide();
-				$('.thumbnails').fadeIn();
+				//$('.thumbnails').fadeIn();
 				$('.made').fadeIn();
 				$('.zoom-icon').removeClass('zoom-icon-out').addClass('zoom-icon-in');
 
@@ -252,41 +255,26 @@ function loadApp() {
 
 	$('.thumbnails li').
 	bind($.mouseEvents.over, function() {
-
 		$(this).addClass('thumb-hover');
-
 	}).bind($.mouseEvents.out, function() {
-
 		$(this).removeClass('thumb-hover');
-
 	});
 
 	if ($.isTouch) {
-
 		$('.thumbnails').
 		addClass('thumbanils-touch').
 		bind($.mouseEvents.move, function(event) {
 			event.preventDefault();
 		});
-
 	} else {
-
 		$('.thumbnails ul').mouseover(function() {
-
 			$('.thumbnails').addClass('thumbnails-hover');
-
 		}).mousedown(function() {
-
 			return false;
-
 		}).mouseout(function() {
-
 			$('.thumbnails').removeClass('thumbnails-hover');
-
 		});
-
 	}
-
 
 	// Regions
 
@@ -299,64 +287,40 @@ function loadApp() {
 	// Events for the next button
 
 	$('.next-button').bind($.mouseEvents.over, function() {
-
 		$(this).addClass('next-button-hover');
-
 	}).bind($.mouseEvents.out, function() {
-
 		$(this).removeClass('next-button-hover');
-
 	}).bind($.mouseEvents.down, function() {
-
 		$(this).addClass('next-button-down');
-
 	}).bind($.mouseEvents.up, function() {
-
 		$(this).removeClass('next-button-down');
-
 	}).click(function() {
-
 		$('.magazine').turn('next');
-
 	});
 
 	// Events for the next button
 
 	$('.previous-button').bind($.mouseEvents.over, function() {
-
 		$(this).addClass('previous-button-hover');
-
 	}).bind($.mouseEvents.out, function() {
-
 		$(this).removeClass('previous-button-hover');
-
 	}).bind($.mouseEvents.down, function() {
-
 		$(this).addClass('previous-button-down');
-
 	}).bind($.mouseEvents.up, function() {
-
 		$(this).removeClass('previous-button-down');
-
 	}).click(function() {
-
 		$('.magazine').turn('previous');
-
 	});
-
 
 	resizeViewport();
 
 	$('.magazine').addClass('animated');
-
-}
+};
 
 /*
  * Magazine sample
  */
-
 function addPage(page, book) {
-
 	var id, pages = book.turn('pages');
 
 	// Create a new element for this page
@@ -372,11 +336,9 @@ function addPage(page, book) {
 		// Load the page
 		loadPage(page, element);
 	}
-
-}
+};
 
 function loadPage(page, pageElement) {
-
 	// Create an image element
 
 	var img = $('<img />');
@@ -407,13 +369,10 @@ function loadPage(page, pageElement) {
 	img.attr('src', 'images/' + page + '.jpg');
 
 	loadRegions(page, pageElement);
-
-}
+};
 
 // Zoom in / Zoom out
-
 function zoomTo(event) {
-
 	setTimeout(function() {
 		if ($('.magazine-viewport').data().regionClicked) {
 			$('.magazine-viewport').data().regionClicked = false;
@@ -425,15 +384,10 @@ function zoomTo(event) {
 			}
 		}
 	}, 1);
-
-}
-
-
+};
 
 // Load regions
-
 function loadRegions(page, element) {
-
 	$.getJSON('images/' + page + '-regions.json').
 	done(function(data) {
 
@@ -441,10 +395,9 @@ function loadRegions(page, element) {
 			addRegion(region, element);
 		});
 	});
-}
+};
 
 // Add region
-
 function addRegion(region, pageElement) {
 
 	var reg = $('<div />', {
@@ -463,12 +416,10 @@ function addRegion(region, pageElement) {
 
 
 	reg.appendTo(pageElement);
-}
+};
 
 // Process click on a region
-
 function regionClick(event) {
-
 	var region = $(event.target);
 
 	if (region.hasClass('region')) {
@@ -484,13 +435,10 @@ function regionClick(event) {
 		return processRegion(region, regionType);
 
 	}
-
-}
+};
 
 // Process the data of every region
-
 function processRegion(region, regionType) {
-
 	data = decodeParams(region.attr('region-data'));
 
 	switch (regionType) {
@@ -517,13 +465,10 @@ function processRegion(region, regionType) {
 
 			break;
 	}
-
-}
+};
 
 // Load large page
-
 function loadLargePage(page, pageElement) {
-
 	var img = $('<img />');
 
 	img.load(function() {
@@ -541,12 +486,10 @@ function loadLargePage(page, pageElement) {
 	// Loadnew page
 
 	img.attr('src', 'images/' + page + '-large.jpg');
-}
+};
 
 // Load small page
-
 function loadSmallPage(page, pageElement) {
-
 	var img = pageElement.find('img');
 
 	img.css({
@@ -558,15 +501,12 @@ function loadSmallPage(page, pageElement) {
 	// Loadnew page
 
 	img.attr('src', 'images/' + page + '.jpg');
-}
+};
 
 // http://code.google.com/p/chromium/issues/detail?id=128488
-
 function isChrome() {
-
 	return navigator.userAgent.indexOf('Chrome') != -1;
-
-}
+};
 
 function disableControls(page) {
 	if (page == 1)
@@ -578,12 +518,10 @@ function disableControls(page) {
 		$('.next-button').hide();
 	else
 		$('.next-button').show();
-}
+};
 
 // Set the width and height for the viewport
-
 function resizeViewport() {
-
 	var width = $(window).width() - $(".thumbnails").width(),
 		height = $(window).height(),
 		options = $('.magazine').turn('options');
@@ -594,8 +532,10 @@ function resizeViewport() {
 		width: width,
 		height: height
 	}).
+
 	zoom('resize');
 
+	$('.thumbnails').css({height:height});
 
 	if ($('.magazine').turn('zoom') == 1) {
 		var bound = calculateBound({
@@ -650,11 +590,10 @@ function resizeViewport() {
 		$('.made').show();
 
 	$('.magazine').addClass('animated');
-
-}
+};
 
 function siderToggle() {
-	var _width = ($(".thumbnails").width()==0)?167:0;
+	var _width = ($(".thumbnails").width() == 0) ? 167 : 0;
 	$(".thumbnails").animate({
 		width: _width
 	}, {
@@ -662,40 +601,88 @@ function siderToggle() {
 			resizeViewport();
 		}
 	});
-}
+};
 
 function turnNext() {
 	$('.magazine').turn("next");
-}
+};
 
 function turnPrevious() {
 	$('.magazine').turn("previous");
+};
+
+
+function fullScreenToggle() {
+	var bool = false;
+	// if(document.fullScreenEnabled)
+	// 	bool = document.fullScreenEnabled;
+	// if(document.mozFullScreenEnabled)
+	// 	bool = document.mozFullScreenEnabled;
+	// if(document.webkitFullScreenEnabled)
+	// 	bool = document.webkitFullScreenEnabled;
+	bool = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement;
+
+	console.log(bool);
+	if(bool)
+		exitFullscreen();
+	else
+		fullScreen(document.documentElement);
+};
+
+function launchFullscreen(element) {
+  if(element.requestFullscreen) {
+    element.requestFullscreen();
+  } else if(element.mozRequestFullScreen) {
+    element.mozRequestFullScreen();
+  } else if(element.webkitRequestFullscreen) {
+    element.webkitRequestFullscreen();
+  } else if(element.msRequestFullscreen) {
+    element.msRequestFullscreen();
+  }
+};
+function fullScreen(el) { 
+	var rfs = el.requestFullScreen || el.webkitRequestFullScreen || el.mozRequestFullScreen || el.msRequestFullScreen; 
+	if (typeof rfs != "undefined" && rfs) { 
+		rfs.call(el); 
+	} else if (typeof window.ActiveXObject != "undefined") { 
+	// for Internet Explorer 
+		var wscript = new ActiveXObject("WScript.Shell"); 
+		if (wscript != null) { 
+			wscript.SendKeys("{F11}"); 
+		} 
+	} 
+	 
 }
 
-$(".magazine").bind("turned", function(event, page, view) {
-  	$("#pageNumber").val(page);
-});
+// 判断浏览器种类
+function exitFullscreen() {
+  if(document.exitFullscreen) {
+    document.exitFullscreen();
+  } else if(document.mozCancelFullScreen) {
+    document.mozCancelFullScreen();
+  } else if(document.webkitExitFullscreen) {
+    document.webkitExitFullscreen();
+  }
+};
 
 function turnPage(index) {
-	if(event.keyCode==13) {
-		if($(".magazine").turn("hasPage", index)) {
+	if (event.keyCode == 13) {
+		if ($(".magazine").turn("hasPage", index)) {
 			$('.magazine').turn("page", index);
 		}
 		return false;
 	}
-}
+};
 
 // Number of views in a flipbook
-
 function numberOfViews(book) {
 	return book.turn('pages') / 2 + 1;
-}
+};
 
 // Current view in a flipbook
-
 function getViewNumber(book, page) {
 	return parseInt((page || book.turn('page')) / 2 + 1, 10);
-}
+};
 
 function moveBar(yes) {
 	if (Modernizr && Modernizr.csstransforms) {
@@ -703,7 +690,7 @@ function moveBar(yes) {
 			zIndex: yes ? -1 : 10000
 		});
 	}
-}
+};
 
 function setPreview(view) {
 
@@ -744,20 +731,15 @@ function setPreview(view) {
 	preview.css({
 		backgroundPosition: '0px -' + ((view - 1) * previewHeight) + 'px'
 	});
-}
+};
 
 // Width of the flipbook when zoomed in
-
 function largeMagazineWidth() {
-
 	return 2214;
-
-}
+};
 
 // decode URL Parameters
-
 function decodeParams(data) {
-
 	var parts = data.split('&'),
 		d, obj = {};
 
@@ -765,14 +747,11 @@ function decodeParams(data) {
 		d = parts[i].split('=');
 		obj[decodeURIComponent(d[0])] = decodeURIComponent(d[1]);
 	}
-
 	return obj;
-}
+};
 
 // Calculate the width and height of a square within another square
-
 function calculateBound(d) {
-
 	var bound = {
 		width: d.width,
 		height: d.height
@@ -796,33 +775,29 @@ function calculateBound(d) {
 	}
 
 	return bound;
-}
+};
 
 // Zoom icon
-
 $('.zoom-icon').bind('mouseover', function() {
-
 	if ($(this).hasClass('zoom-icon-in'))
 		$(this).addClass('zoom-icon-in-hover');
-
 	if ($(this).hasClass('zoom-icon-out'))
 		$(this).addClass('zoom-icon-out-hover');
-
 }).bind('mouseout', function() {
-
 	if ($(this).hasClass('zoom-icon-in'))
 		$(this).removeClass('zoom-icon-in-hover');
 
 	if ($(this).hasClass('zoom-icon-out'))
 		$(this).removeClass('zoom-icon-out-hover');
-
 }).bind('click', function() {
-
 	if ($(this).hasClass('zoom-icon-in'))
 		$('.magazine-viewport').zoom('zoomIn');
 	else if ($(this).hasClass('zoom-icon-out'))
 		$('.magazine-viewport').zoom('zoomOut');
+});
 
+$(".magazine").bind("turned", function(event, page, view) {
+	$("#pageNumber").val(page);
 });
 
 $('#canvas').hide();

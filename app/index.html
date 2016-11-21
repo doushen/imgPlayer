@@ -24,21 +24,21 @@
     <div id="toolbars" class="toolbars">
         <button id="sidebarToggle" class="toolbarButton" title="切换侧栏"  onclick="siderToggle();">
         </button>
-
         
+        <button id="presentationMode" class="toolbarButton presentationMode hiddenLargeView" title="切换到演示模式" onclick="fullScreenToggle();" tabindex="31">
+        </button>
+
+        <div class="toolbarButtonSpacer toolbarButton"></div>
 
         <button class="toolbarButton pageDown" onclick="turnNext();" title="下一页" id="next">
         </button>
         <button class="toolbarButton pageUp" onclick="turnPrevious();" title="上一页" id="previous" >
         </button>
-        
-        
         <input type="number" id="pageNumber" class="toolbarField pageNumber toolbarButton" value="1" size="4" min="1" tabindex="15" max="9999999"  onkeypress="turnPage(this.value);">
-        <label id="pageNumberLabel" class="toolbarLabel toolbarButton" for="pageNumber">页面：</label>
-
+        <label id="pageNumberLabel" class="toolbarLabel toolbarButton" for="pageNumber">页面：</label> 
     </div>
+
     <div id="canvas">
-        
         <div class="magazine-viewport">
         <div class="zoom-icon zoom-icon-in"></div>
             <div class="container">
@@ -93,8 +93,10 @@
     </div>
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
+    <script src="/bower_components/turn.js/hash.js"></script>
     <script src="/bower_components/jquery/dist/jquery.js"></script>
     <script src="/bower_components/turn.js/turn.js"></script>
+    <script src="/bower_components/turn.js/zoom.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:js scripts/main.js -->

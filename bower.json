@@ -1,0 +1,12 @@
+{
+  "name": "imgplayer",
+  "private": true,
+  "dependencies": {
+    "jquery": "~2.1.1",
+    "turn.js": "blasten/turn.js"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.1.2"
+  }
+}

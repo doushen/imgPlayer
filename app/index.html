@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>imgPlayer</title>
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <!-- Place favicon.ico in the root directory -->
+    <!-- build:css styles/vendor.css -->
+    <!-- bower:css -->
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+</head>
+
+<body>
+    <!--[if lt IE 10]>
+      <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <div id="toolbars" class="toolbars">
+        <button id="sidebarToggle" class="toolbarButton" title="切换侧栏"  onclick="siderToggle();">
+        </button>
+
+        
+
+        <button class="toolbarButton pageDown" onclick="turnNext();" title="下一页" id="next">
+        </button>
+        <button class="toolbarButton pageUp" onclick="turnPrevious();" title="上一页" id="previous" >
+        </button>
+        
+        
+        <input type="number" id="pageNumber" class="toolbarField pageNumber toolbarButton" value="1" size="4" min="1" tabindex="15" max="9999999"  onkeypress="turnPage(this.value);">
+        <label id="pageNumberLabel" class="toolbarLabel toolbarButton" for="pageNumber">页面：</label>
+
+    </div>
+    <div id="canvas">
+        
+        <div class="magazine-viewport">
+        <div class="zoom-icon zoom-icon-in"></div>
+            <div class="container">
+                <div class="magazine">
+                    <!-- Next button -->
+                    <div ignore="1" class="next-button"></div>
+                    <!-- Previous button -->
+                    <div ignore="1" class="previous-button"></div>
+                </div>
+            </div>
+        </div>
+        <!-- Thumbnails -->
+        <div class="thumbnails">
+            <div>
+                <ul>
+                    <li class="i">
+                        <img src="images/1-thumb.jpg" width="76" height="100" class="page-1" />
+                        <span>1</span>
+                    </li>
+                    <li class="d">
+                        <img src="images/2-thumb.jpg" width="76" height="100" class="page-2">
+                        <img src="images/3-thumb.jpg" width="76" height="100" class="page-3">
+                        <span>2-3</span>
+                    </li>
+                    <li class="d">
+                        <img src="images/4-thumb.jpg" width="76" height="100" class="page-4">
+                        <img src="images/5-thumb.jpg" width="76" height="100" class="page-5">
+                        <span>4-5</span>
+                    </li>
+                    <li class="d">
+                        <img src="images/6-thumb.jpg" width="76" height="100" class="page-6">
+                        <img src="images/7-thumb.jpg" width="76" height="100" class="page-7">
+                        <span>6-7</span>
+                    </li>
+                    <li class="d">
+                        <img src="images/8-thumb.jpg" width="76" height="100" class="page-8">
+                        <img src="images/9-thumb.jpg" width="76" height="100" class="page-9">
+                        <span>8-9</span>
+                    </li>
+                    <li class="d">
+                        <img src="images/10-thumb.jpg" width="76" height="100" class="page-10">
+                        <img src="images/11-thumb.jpg" width="76" height="100" class="page-11">
+                        <span>10-11</span>
+                    </li>
+                    <li class="i">
+                        <img src="images/12-thumb.jpg" width="76" height="100" class="page-12">
+                        <span>12</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- build:js scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="/bower_components/jquery/dist/jquery.js"></script>
+    <script src="/bower_components/turn.js/turn.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:js scripts/main.js -->
+    <script src="scripts/main.js"></script>
+    <!-- endbuild -->
+</body>
+
+</html>

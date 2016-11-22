@@ -596,6 +596,7 @@ function resizeViewport() {
 };
 
 function siderToggle() {
+	$("#sidebarToggle").toggleClass("toggled");
 	var _width = ($(".thumbnails").width() == 0) ? 167 : 0;
 	$(".thumbnails").animate({
 		width: _width
@@ -606,6 +607,23 @@ function siderToggle() {
 	});
 };
 
+function switchSider(index) {
+	switch(index){
+		case 1:
+		$("#viewOutline").removeClass("toggled");
+		$("#viewThumbnail").addClass("toggled");
+		$(".thumbnails").show();
+		$(".outlines").hide();
+		break;
+		case 2:
+		$("#viewThumbnail").removeClass("toggled");
+		$("#viewOutline").addClass("toggled");
+		$(".thumbnails").hide();
+		$(".outlines").show();
+		break;
+	}
+};
+
 function turnNext() {
 	$('.magazine').turn("next");
 };
@@ -614,22 +632,41 @@ function turnPrevious() {
 	$('.magazine').turn("previous");
 };
 
+document.addEventListener("fullscreenchange", function(e) {
+  console.log("fullscreenchange", e);
+});
+document.addEventListener("mozfullscreenchange", function(e) {
+  console.log("mozfullscreenchange ", e);
+});
+document.addEventListener("webkitfullscreenchange", function(e) {
+	var bool = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement;
+  	if(bool)
+  		$("#presentationMode").addClass("toggled");
+  	else
+  		$("#presentationMode").removeClass("toggled");	
+  	console.log("webkitfullscreenchange", e, bool);
+});
+document.addEventListener("msfullscreenchange", function(e) {
+  console.log("msfullscreenchange", e);
+});
 
 function fullScreenToggle() {
-	var bool = false;
 	// if(document.fullScreenEnabled)
 	// 	bool = document.fullScreenEnabled;
 	// if(document.mozFullScreenEnabled)
 	// 	bool = document.mozFullScreenEnabled;
 	// if(document.webkitFullScreenEnabled)
 	// 	bool = document.webkitFullScreenEnabled;
-	bool = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement;
+	var bool = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement;
 
-	console.log(bool);
-	if(bool)
+	
+	if(bool){
 		exitFullscreen();
-	else
-		fullScreen(document.documentElement);
+	}
+	else{
+
+		fullScreen(document.getElementById("canvas"));
+	}
 };
 
 function launchFullscreen(element) {
@@ -799,7 +836,7 @@ $('.zoom-icon').bind('mouseover', function() {
 		$('.magazine-viewport').zoom('zoomOut');
 });
 
-$(".magazine").bind("turned", function(event, page, view) {
+$(".magazine").bind("turning", function(event, page, view) {
 	$("#pageNumber").val(page);
 });
 

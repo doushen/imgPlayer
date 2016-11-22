@@ -98,7 +98,6 @@ function loadApp() {
 			missing: function(event, pages) {
 
 				// Add pages that aren't in the magazine
-
 				for (var i = 0; i < pages.length; i++)
 					addPage(pages[i], $(this));
 
@@ -422,21 +421,21 @@ function addRegion(region, pageElement) {
 
 // Process click on a region
 function regionClick(event) {
-	var region = $(event.target);
+	// var region = $(event.target);
 
-	if (region.hasClass('region')) {
+	// if (region.hasClass('region')) {
 
-		$('.magazine-viewport').data().regionClicked = true;
+	// 	$('.magazine-viewport').data().regionClicked = true;
 
-		setTimeout(function() {
-			$('.magazine-viewport').data().regionClicked = false;
-		}, 100);
+	// 	setTimeout(function() {
+	// 		$('.magazine-viewport').data().regionClicked = false;
+	// 	}, 100);
 
-		var regionType = $.trim(region.attr('class').replace('region', ''));
+	// 	var regionType = $.trim(region.attr('class').replace('region', ''));
 
-		return processRegion(region, regionType);
+	// 	return processRegion(region, regionType);
 
-	}
+	// }
 };
 
 // Process the data of every region

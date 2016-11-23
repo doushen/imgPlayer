@@ -611,14 +611,14 @@ function switchSider(index) {
 		case 1:
 		$("#viewOutline").removeClass("toggled");
 		$("#viewThumbnail").addClass("toggled");
-		$(".thumbnails").show();
-		$(".outlines").hide();
+		$("#thumbnails").show();
+		$("#outlines").hide();
 		break;
 		case 2:
 		$("#viewThumbnail").removeClass("toggled");
 		$("#viewOutline").addClass("toggled");
-		$(".thumbnails").hide();
-		$(".outlines").show();
+		$("#thumbnails").hide();
+		$("#outlines").show();
 		break;
 	}
 };

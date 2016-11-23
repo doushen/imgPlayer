@@ -368,7 +368,7 @@ body {
                 -ms-transition: -webkit-transform 60ms;
                 transition: -webkit-transform 60ms;
                 div {
-                  display: none;
+                  display: block;
                   width:100%;
                   text-align: left;
                 }
@@ -422,17 +422,8 @@ body {
         float: left;
     }
 }
-.outlines {
-  position: relative;
-    display: inline-block;
-    float: right;
-    background-color: #383838;
-    top: 0;
-    right: 0;
-    width: 167px;
-    padding-top: 32px;
-    z-index: 999;
-    color: #fff;
+.thumbnails#outlines {
+  display: none;
 }
 .thumbanils-touch ul {
     -webkit-transform: none;

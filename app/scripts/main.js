@@ -632,9 +632,20 @@ function turnPrevious() {
 };
 
 document.addEventListener("fullscreenchange", function(e) {
+	var bool = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement;
+  	if(bool)
+  		$("#presentationMode").addClass("toggled");
+  	else
+  		$("#presentationMode").removeClass("toggled");	
   console.log("fullscreenchange", e);
+
 });
 document.addEventListener("mozfullscreenchange", function(e) {
+	var bool = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement;
+  	if(bool)
+  		$("#presentationMode").addClass("toggled");
+  	else
+  		$("#presentationMode").removeClass("toggled");	
   console.log("mozfullscreenchange ", e);
 });
 document.addEventListener("webkitfullscreenchange", function(e) {
@@ -646,6 +657,11 @@ document.addEventListener("webkitfullscreenchange", function(e) {
   	console.log("webkitfullscreenchange", e, bool);
 });
 document.addEventListener("msfullscreenchange", function(e) {
+	var bool = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement;
+  	if(bool)
+  		$("#presentationMode").addClass("toggled");
+  	else
+  		$("#presentationMode").removeClass("toggled");	
   console.log("msfullscreenchange", e);
 });
 

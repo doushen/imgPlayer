@@ -1,3 +1,140 @@
+'use strict';
+
+// http://code.google.com/p/chromium/issues/detail?id=128488
+function isChrome() {
+	return navigator.userAgent.indexOf('Chrome') !== -1;
+}
+
+function disableControls(page) {
+	if (page === 1) {
+		$('.previous-button').hide();
+	} else {
+		$('.previous-button').show();
+	}
+
+	if (page === $('.magazine').turn('pages')) {
+		$('.next-button').hide();
+	} else {
+		$('.next-button').show();
+	}
+}
+
+// Width of the flipbook when zoomed in
+function largeMagazineWidth() {
+	return 2214;
+}
+
+// Set the width and height for the viewport
+function resizeViewport() {
+	var width = $(window).width() - $('.thumbnails').width(),
+		height = $(window).height(),
+		options = $('.magazine').turn('options');
+
+	$('.magazine').removeClass('animated');
+
+	$('.magazine-viewport').css({
+		width: width,
+		height: height
+	}).
+
+	zoom('resize');
+	$('.thumbnails').css({
+		height: height
+	});
+	$('.toolbarButtonSiderContainer').css({
+		width: $('.thumbnails').width()
+	});
+
+	if ($('.magazine').turn('zoom') === 1) {
+		var bound = calculateBound({
+			width: options.width,
+			height: options.height,
+			boundWidth: width - 44,
+			boundHeight: Math.min(options.height, height)
+		});
+
+		if (bound.width % 2 !== 0) {
+			bound.width -= 1;
+		}
+
+
+		if (bound.width !== $('.magazine').width() || bound.height !== $('.magazine').height()) {
+
+			$('.magazine').turn('size', bound.width, bound.height);
+
+			if ($('.magazine').turn('page') === 1) {
+				$('.magazine').turn('peel', 'br');
+			}
+
+			$('.next-button').css({
+				height: bound.height,
+				backgroundPosition: '-38px ' + (bound.height / 2 - 32 / 2) + 'px'
+			});
+			$('.previous-button').css({
+				height: bound.height,
+				backgroundPosition: '-4px ' + (bound.height / 2 - 32 / 2) + 'px'
+			});
+		}
+
+		$('.magazine').css({
+			top: -bound.height / 2,
+			left: -bound.width / 2
+		});
+	}
+
+	var magazineOffset = $('.magazine').offset(); //,
+	//boundH = height - magazineOffset.top - $('.magazine').height(),
+	//marginTop = (boundH - $('.thumbnails > div').height()) / 2;
+
+	// if (marginTop<0) {
+	// 	//$('.thumbnails').css({height:1});
+	// 	// $('.thumbnails').css({height: boundH});
+	// } else {
+	// 	$('.thumbnails').css({height: boundH});
+	// 	$('.thumbnails > div').css({marginTop: marginTop});
+	// }
+
+	if (magazineOffset.top < $('.made').height()) {
+		$('.made').hide();
+	} else {
+		$('.made').show();
+	}
+
+	$('.magazine').addClass('animated');
+}
+
+// Add region
+function addRegion(region, pageElement) {
+
+	var reg = $('<div />', {
+			'class': 'region  ' + region.class
+		}),
+		options = $('.magazine').turn('options'),
+		pageWidth = options.width / 2,
+		pageHeight = options.height;
+
+	reg.css({
+		top: Math.round(region.y / pageHeight * 100) + '%',
+		left: Math.round(region.x / pageWidth * 100) + '%',
+		width: Math.round(region.width / pageWidth * 100) + '%',
+		height: Math.round(region.height / pageHeight * 100) + '%'
+	}).attr('region-data', $.param(region.data || ''));
+
+
+	reg.appendTo(pageElement);
+}
+
+// Load regions
+function loadRegions(page, element) {
+	$.getJSON('images/' + page + '-regions.json').
+	done(function(data) {
+
+		$.each(data, function(key, region) {
+			addRegion(region, element);
+		});
+	});
+}
+
 /*
  *	加载
  */
@@ -8,7 +145,7 @@ function loadApp() {
 
 	// Check if the CSS was already loaded
 
-	if (flipbook.width() == 0 || flipbook.height() == 0) {
+	if (flipbook.width() === 0 || flipbook.height() === 0) {
 		setTimeout(loadApp, 10);
 		return;
 	}
@@ -21,7 +158,7 @@ function loadApp() {
 
 		width: 1000,
 
-		// display: "single",
+		// display: 'single',
 
 		// direction: 'rtl',
 
@@ -56,15 +193,12 @@ function loadApp() {
 		// Events
 
 		when: {
-			turning: function(event, page, view) {
+			turning: function(event, page) {
 
 				var book = $(this),
-					currentPage = book.turn('page'),
-					pages = book.turn('pages');
+					currentPage = book.turn('page');
 
-				// Update the current URI
 
-				Hash.go('page/' + page).update();
 
 				// Show and hide navigation buttons
 
@@ -79,17 +213,19 @@ function loadApp() {
 				parent().
 				addClass('current');
 
+				// Update the current URI
 
+				window.Hash.go('page/' + page).update();
 
 			},
 
-			turned: function(event, page, view) {
+			turned: function(event, page) {
 
 				disableControls(page);
 
 				$(this).turn('center');
 
-				if (page == 1) {
+				if (page === 1) {
 					$(this).turn('peel', 'br');
 				}
 
@@ -98,8 +234,9 @@ function loadApp() {
 			missing: function(event, pages) {
 
 				// Add pages that aren't in the magazine
-				for (var i = 0; i < pages.length; i++)
+				for (var i = 0; i < pages.length; i++) {
 					addPage(pages[i], $(this));
+				}
 
 			}
 		}
@@ -133,10 +270,11 @@ function loadApp() {
 
 			resize: function(event, scale, page, pageElement) {
 
-				if (scale == 1)
+				if (scale === 1) {
 					loadSmallPage(page, pageElement);
-				else
+				} else {
 					loadLargePage(page, pageElement);
+				}
 
 			},
 
@@ -178,10 +316,11 @@ function loadApp() {
 
 	// Zoom event
 
-	if ($.isTouch)
+	if ($.isTouch) {
 		$('.magazine-viewport').bind('zoom.doubleTap', zoomTo);
-	else
+	} else {
 		$('.magazine-viewport').bind('zoom.tap', zoomTo);
+	}
 
 
 	// Using arrow keys to turn the page
@@ -216,22 +355,23 @@ function loadApp() {
 		}
 	});
 
-	// URIs - Format #/page/1 
 
-	Hash.on('^page\/([0-9]*)$', {
+	window.Hash.on('^page\/([0-9]*)$', {
 		yep: function(path, parts) {
 			var page = parts[1];
 
 			if (page !== undefined) {
-				if ($('.magazine').turn('is'))
+				if ($('.magazine').turn('is')) {
 					$('.magazine').turn('page', page);
+				}
 			}
 
 		},
-		nop: function(path) {
+		nop: function() {
 
-			if ($('.magazine').turn('is'))
+			if ($('.magazine').turn('is')) {
 				$('.magazine').turn('page', 1);
+			}
 		}
 	});
 
@@ -316,13 +456,13 @@ function loadApp() {
 	resizeViewport();
 
 	$('.magazine').addClass('animated');
-};
+}
 
 /*
  * Magazine sample
  */
 function addPage(page, book) {
-	var id, pages = book.turn('pages');
+	//var id, pages = book.turn('pages');
 
 	// Create a new element for this page
 	var element = $('<div />', {});
@@ -337,7 +477,7 @@ function addPage(page, book) {
 		// Load the page
 		loadPage(page, element);
 	}
-};
+}
 
 function loadPage(page, pageElement) {
 	// Create an image element
@@ -370,7 +510,7 @@ function loadPage(page, pageElement) {
 	img.attr('src', 'images/' + page + '.jpg');
 
 	loadRegions(page, pageElement);
-};
+}
 
 // Zoom in / Zoom out
 function zoomTo(event) {
@@ -378,46 +518,16 @@ function zoomTo(event) {
 		if ($('.magazine-viewport').data().regionClicked) {
 			$('.magazine-viewport').data().regionClicked = false;
 		} else {
-			if ($('.magazine-viewport').zoom('value') == 1) {
+			if ($('.magazine-viewport').zoom('value') === 1) {
 				$('.magazine-viewport').zoom('zoomIn', event);
 			} else {
 				$('.magazine-viewport').zoom('zoomOut');
 			}
 		}
 	}, 1);
-};
-
-// Load regions
-function loadRegions(page, element) {
-	$.getJSON('images/' + page + '-regions.json').
-	done(function(data) {
-
-		$.each(data, function(key, region) {
-			addRegion(region, element);
-		});
-	});
-};
-
-// Add region
-function addRegion(region, pageElement) {
-
-	var reg = $('<div />', {
-			'class': 'region  ' + region['class']
-		}),
-		options = $('.magazine').turn('options'),
-		pageWidth = options.width / 2,
-		pageHeight = options.height;
-
-	reg.css({
-		top: Math.round(region.y / pageHeight * 100) + '%',
-		left: Math.round(region.x / pageWidth * 100) + '%',
-		width: Math.round(region.width / pageWidth * 100) + '%',
-		height: Math.round(region.height / pageHeight * 100) + '%'
-	}).attr('region-data', $.param(region.data || ''));
+}
 
 
-	reg.appendTo(pageElement);
-};
 
 // Process click on a region
 function regionClick(event) {
@@ -436,7 +546,7 @@ function regionClick(event) {
 	// 	return processRegion(region, regionType);
 
 	// }
-};
+}
 
 // Process the data of every region
 function processRegion(region, regionType) {
@@ -466,7 +576,7 @@ function processRegion(region, regionType) {
 
 			break;
 	}
-};
+}
 
 // Load large page
 function loadLargePage(page, pageElement) {
@@ -487,7 +597,7 @@ function loadLargePage(page, pageElement) {
 	// Loadnew page
 
 	img.attr('src', 'images/' + page + '-large.jpg');
-};
+}
 
 // Load small page
 function loadSmallPage(page, pageElement) {
@@ -502,168 +612,44 @@ function loadSmallPage(page, pageElement) {
 	// Loadnew page
 
 	img.attr('src', 'images/' + page + '.jpg');
-};
-
-// http://code.google.com/p/chromium/issues/detail?id=128488
-function isChrome() {
-	return navigator.userAgent.indexOf('Chrome') != -1;
-};
-
-function disableControls(page) {
-	if (page == 1)
-		$('.previous-button').hide();
-	else
-		$('.previous-button').show();
-
-	if (page == $('.magazine').turn('pages'))
-		$('.next-button').hide();
-	else
-		$('.next-button').show();
-};
-
-// Set the width and height for the viewport
-function resizeViewport() {
-	var width = $(window).width() - $(".thumbnails").width(),
-		height = $(window).height(),
-		options = $('.magazine').turn('options');
-
-	$('.magazine').removeClass('animated');
-
-	$('.magazine-viewport').css({
-		width: width,
-		height: height
-	}).
-
-	zoom('resize');
-
-	$('.thumbnails').css({height:height});
-	$(".toolbarButtonSiderContainer").css({width:$('.thumbnails').width()});
-
-	if ($('.magazine').turn('zoom') == 1) {
-		var bound = calculateBound({
-			width: options.width,
-			height: options.height,
-			boundWidth: width - 44,
-			boundHeight: Math.min(options.height, height)
-		});
-
-		if (bound.width % 2 !== 0)
-			bound.width -= 1;
-
-
-		if (bound.width != $('.magazine').width() || bound.height != $('.magazine').height()) {
-
-			$('.magazine').turn('size', bound.width, bound.height);
-
-			if ($('.magazine').turn('page') == 1)
-				$('.magazine').turn('peel', 'br');
-
-			$('.next-button').css({
-				height: bound.height,
-				backgroundPosition: '-38px ' + (bound.height / 2 - 32 / 2) + 'px'
-			});
-			$('.previous-button').css({
-				height: bound.height,
-				backgroundPosition: '-4px ' + (bound.height / 2 - 32 / 2) + 'px'
-			});
-		}
-
-		$('.magazine').css({
-			top: -bound.height / 2,
-			left: -bound.width / 2
-		});
-	}
-
-	var magazineOffset = $('.magazine').offset(),
-		boundH = height - magazineOffset.top - $('.magazine').height(),
-		marginTop = (boundH - $('.thumbnails > div').height()) / 2;
-
-	// if (marginTop<0) {
-	// 	//$('.thumbnails').css({height:1});
-	// 	// $('.thumbnails').css({height: boundH});
-	// } else {
-	// 	$('.thumbnails').css({height: boundH});
-	// 	$('.thumbnails > div').css({marginTop: marginTop});
-	// }
-
-	if (magazineOffset.top < $('.made').height())
-		$('.made').hide();
-	else
-		$('.made').show();
-
-	$('.magazine').addClass('animated');
-};
+}
 
 function siderToggle() {
-	$("#sidebarToggle").toggleClass("toggled");
-	var _width = ($(".thumbnails").width() == 0) ? 167 : 0;
-	$(".thumbnails").animate({
-		width: _width
+	$('#sidebarToggle').toggleClass('toggled');
+	var w = ($('.thumbnails').width() === 0) ? 167 : 0;
+	$('.thumbnails').animate({
+		width: w
 	}, {
 		step: function() {
 			resizeViewport();
 		}
 	});
-};
+}
 
 function switchSider(index) {
-	switch(index){
+	switch (index) {
 		case 1:
-		$("#viewOutline").removeClass("toggled");
-		$("#viewThumbnail").addClass("toggled");
-		$("#thumbnails").show();
-		$("#outlines").hide();
-		break;
+			$('#viewOutline').removeClass('toggled');
+			$('#viewThumbnail').addClass('toggled');
+			$('#thumbnails').show();
+			$('#outlines').hide();
+			break;
 		case 2:
-		$("#viewThumbnail").removeClass("toggled");
-		$("#viewOutline").addClass("toggled");
-		$("#thumbnails").hide();
-		$("#outlines").show();
-		break;
+			$('#viewThumbnail').removeClass('toggled');
+			$('#viewOutline').addClass('toggled');
+			$('#thumbnails').hide();
+			$('#outlines').show();
+			break;
 	}
-};
+}
 
 function turnNext() {
-	$('.magazine').turn("next");
-};
+	$('.magazine').turn('next');
+}
 
 function turnPrevious() {
-	$('.magazine').turn("previous");
-};
-
-document.addEventListener("fullscreenchange", function(e) {
-	var bool = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement;
-  	if(bool)
-  		$("#presentationMode").addClass("toggled");
-  	else
-  		$("#presentationMode").removeClass("toggled");	
-  console.log("fullscreenchange", e);
-
-});
-document.addEventListener("mozfullscreenchange", function(e) {
-	var bool = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement;
-  	if(bool)
-  		$("#presentationMode").addClass("toggled");
-  	else
-  		$("#presentationMode").removeClass("toggled");	
-  console.log("mozfullscreenchange ", e);
-});
-document.addEventListener("webkitfullscreenchange", function(e) {
-	var bool = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement;
-  	if(bool)
-  		$("#presentationMode").addClass("toggled");
-  	else
-  		$("#presentationMode").removeClass("toggled");	
-  	console.log("webkitfullscreenchange", e, bool);
-});
-document.addEventListener("msfullscreenchange", function(e) {
-	var bool = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement;
-  	if(bool)
-  		$("#presentationMode").addClass("toggled");
-  	else
-  		$("#presentationMode").removeClass("toggled");	
-  console.log("msfullscreenchange", e);
-});
+	$('.magazine').turn('previous');
+}
 
 function fullScreenToggle() {
 	// if(document.fullScreenEnabled)
@@ -674,70 +660,69 @@ function fullScreenToggle() {
 	// 	bool = document.webkitFullScreenEnabled;
 	var bool = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement;
 
-	
-	if(bool){
-		exitFullscreen();
-	}
-	else{
 
-		fullScreen(document.getElementById("canvas"));
+	if (bool) {
+		exitFullscreen();
+	} else {
+
+		fullScreen(document.getElementById('canvas'));
 	}
-};
+}
 
 function launchFullscreen(element) {
-  if(element.requestFullscreen) {
-    element.requestFullscreen();
-  } else if(element.mozRequestFullScreen) {
-    element.mozRequestFullScreen();
-  } else if(element.webkitRequestFullscreen) {
-    element.webkitRequestFullscreen();
-  } else if(element.msRequestFullscreen) {
-    element.msRequestFullscreen();
-  }
-};
-function fullScreen(el) { 
-	var rfs = el.requestFullScreen || el.webkitRequestFullScreen || el.mozRequestFullScreen || el.msRequestFullScreen; 
-	if (typeof rfs != "undefined" && rfs) { 
-		rfs.call(el); 
-	} else if (typeof window.ActiveXObject != "undefined") { 
-	// for Internet Explorer 
-		var wscript = new ActiveXObject("WScript.Shell"); 
-		if (wscript != null) { 
-			wscript.SendKeys("{F11}"); 
-		} 
-	} 
-	 
+	if (element.requestFullscreen) {
+		element.requestFullscreen();
+	} else if (element.mozRequestFullScreen) {
+		element.mozRequestFullScreen();
+	} else if (element.webkitRequestFullscreen) {
+		element.webkitRequestFullscreen();
+	} else if (element.msRequestFullscreen) {
+		element.msRequestFullscreen();
+	}
+}
+
+function fullScreen(el) {
+	var rfs = el.requestFullScreen || el.webkitRequestFullScreen || el.mozRequestFullScreen || el.msRequestFullScreen;
+	if (typeof rfs !== 'undefined' && rfs) {
+		rfs.call(el);
+	} else if (typeof window.ActiveXObject !== 'undefined') {
+
+		var wscript = new ActiveXObject('WScript.Shell');
+		if (wscript !== null) {
+			wscript.SendKeys('{F11}');
+		}
+	}
 }
 
 // 判断浏览器种类
 function exitFullscreen() {
-  if(document.exitFullscreen) {
-    document.exitFullscreen();
-  } else if(document.mozCancelFullScreen) {
-    document.mozCancelFullScreen();
-  } else if(document.webkitExitFullscreen) {
-    document.webkitExitFullscreen();
-  }
-};
+	if (document.exitFullscreen) {
+		document.exitFullscreen();
+	} else if (document.mozCancelFullScreen) {
+		document.mozCancelFullScreen();
+	} else if (document.webkitExitFullscreen) {
+		document.webkitExitFullscreen();
+	}
+}
 
 function turnPage(index) {
-	if (event.keyCode == 13) {
-		if ($(".magazine").turn("hasPage", index)) {
-			$('.magazine').turn("page", index);
+	if (event.keyCode === 13) {
+		if ($('.magazine').turn('hasPage', index)) {
+			$('.magazine').turn('page', index);
 		}
 		return false;
 	}
-};
+}
 
 // Number of views in a flipbook
 function numberOfViews(book) {
 	return book.turn('pages') / 2 + 1;
-};
+}
 
 // Current view in a flipbook
 function getViewNumber(book, page) {
 	return parseInt((page || book.turn('page')) / 2 + 1, 10);
-};
+}
 
 function moveBar(yes) {
 	if (Modernizr && Modernizr.csstransforms) {
@@ -745,7 +730,7 @@ function moveBar(yes) {
 			zIndex: yes ? -1 : 10000
 		});
 	}
-};
+}
 
 function setPreview(view) {
 
@@ -753,8 +738,8 @@ function setPreview(view) {
 		previewHeight = 73,
 		previewSrc = 'images/preview.jpg',
 		preview = $(_thumbPreview.children(':first')),
-		numPages = (view == 1 || view == $('#slider').slider('option', 'max')) ? 1 : 2,
-		width = (numPages == 1) ? previewWidth / 2 : previewWidth;
+		numPages = (view === 1 || view === $('#slider').slider('option', 'max')) ? 1 : 2,
+		width = (numPages === 1) ? previewWidth / 2 : previewWidth;
 
 	_thumbPreview.
 	addClass('no-transition').
@@ -771,7 +756,7 @@ function setPreview(view) {
 	});
 
 	if (preview.css('background-image') === '' ||
-		preview.css('background-image') == 'none') {
+		preview.css('background-image') === 'none') {
 
 		preview.css({
 			backgroundImage: 'url(' + previewSrc + ')'
@@ -786,12 +771,7 @@ function setPreview(view) {
 	preview.css({
 		backgroundPosition: '0px -' + ((view - 1) * previewHeight) + 'px'
 	});
-};
-
-// Width of the flipbook when zoomed in
-function largeMagazineWidth() {
-	return 2214;
-};
+}
 
 // decode URL Parameters
 function decodeParams(data) {
@@ -803,7 +783,7 @@ function decodeParams(data) {
 		obj[decodeURIComponent(d[0])] = decodeURIComponent(d[1]);
 	}
 	return obj;
-};
+}
 
 // Calculate the width and height of a square within another square
 function calculateBound(d) {
@@ -830,32 +810,100 @@ function calculateBound(d) {
 	}
 
 	return bound;
-};
+}
+
+document.addEventListener('fullscreenchange', function(e) {
+	var bool = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement;
+	if (bool) {
+		$('#presentationMode').addClass('toggled');
+	} else {
+		$('#presentationMode').removeClass('toggled');
+	}
+});
+
+document.addEventListener('mozfullscreenchange', function(e) {
+	var bool = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement;
+	if (bool) {
+		$('#presentationMode').addClass('toggled');
+	} else {
+		$('#presentationMode').removeClass('toggled');
+	}
+});
+
+document.addEventListener('webkitfullscreenchange', function(e) {
+	var bool = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement;
+	if (bool) {
+		$('#presentationMode').addClass('toggled');
+	} else {
+		$('#presentationMode').removeClass('toggled');
+	}
+});
+
+document.addEventListener('msfullscreenchange', function(e) {
+	var bool = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement;
+	if (bool) {
+		$('#presentationMode').addClass('toggled');
+	} else {
+		$('#presentationMode').removeClass('toggled');
+	}
+});
+
+$('#viewOutline').click(function() {
+	switchSider(2);
+});
+
+$('#viewThumbnail').click(function() {
+	switchSider(1);
+});
+
+$('#sidebarToggle').click(function() {
+	siderToggle();
+});
+
+$('#presentationMode').click(function() {
+	fullScreenToggle();
+});
+
+$('#next').click(function() {
+	turnNext();
+});
+
+$('#previous').click(function() {
+	turnPrevious();
+});
+
+$('#pageNumber').keypress(function() {
+	turnPage(this.value);
+});
 
 // Zoom icon
 $('.zoom-icon').bind('mouseover', function() {
-	if ($(this).hasClass('zoom-icon-in'))
+	if ($(this).hasClass('zoom-icon-in')) {
 		$(this).addClass('zoom-icon-in-hover');
-	if ($(this).hasClass('zoom-icon-out'))
+	}
+	if ($(this).hasClass('zoom-icon-out')) {
 		$(this).addClass('zoom-icon-out-hover');
+	}
 }).bind('mouseout', function() {
-	if ($(this).hasClass('zoom-icon-in'))
+	if ($(this).hasClass('zoom-icon-in')) {
 		$(this).removeClass('zoom-icon-in-hover');
+	}
 
-	if ($(this).hasClass('zoom-icon-out'))
+	if ($(this).hasClass('zoom-icon-out')) {
 		$(this).removeClass('zoom-icon-out-hover');
+	}
 }).bind('click', function() {
-	if ($(this).hasClass('zoom-icon-in'))
+	if ($(this).hasClass('zoom-icon-in')) {
 		$('.magazine-viewport').zoom('zoomIn');
-	else if ($(this).hasClass('zoom-icon-out'))
+	} else if ($(this).hasClass('zoom-icon-out')) {
 		$('.magazine-viewport').zoom('zoomOut');
+	}
 });
 
-$(".magazine").bind("turning", function(event, page, view) {
-	$("#pageNumber").val(page);
+$('.magazine').bind('turning', function(event, page, view) {
+	$('#pageNumber').val(page);
 });
 
 $('#canvas').hide();
-
 
 loadApp();

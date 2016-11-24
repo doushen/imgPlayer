@@ -24,21 +24,21 @@
     <div id="canvas">
         <div id="toolbars" class="toolbars">
             <div class="toolbarButtonSiderContainer">
-                <button id="viewOutline" onclick="switchSider(2);" class="toolbarButton group" title="显示文档大纲" tabindex="3">
+                <button id="viewOutline" class="toolbarButton group" title="显示文档大纲" tabindex="3">
                 </button>
-                <button id="viewThumbnail" onclick="switchSider(1);" class="toolbarButton group toggled" title="显示缩略图" tabindex="2">
+                <button id="viewThumbnail" class="toolbarButton group toggled" title="显示缩略图" tabindex="2">
                 </button>
             </div>
-            <button id="sidebarToggle" class="toolbarButton toggled" title="切换侧栏" onclick="siderToggle();">
+            <button id="sidebarToggle" class="toolbarButton toggled" title="切换侧栏">
             </button>
-            <button id="presentationMode" class="toolbarButton presentationMode hiddenLargeView" title="切换到演示模式" onclick="fullScreenToggle();" tabindex="31">
+            <button id="presentationMode" class="toolbarButton presentationMode hiddenLargeView" title="切换到演示模式" tabindex="31">
             </button>
             <div class="toolbarButtonSpacer toolbarButton"></div>
-            <button class="toolbarButton pageDown" onclick="turnNext();" title="下一页" id="next">
+            <button class="toolbarButton pageDown" title="下一页" id="next">
             </button>
-            <button class="toolbarButton pageUp" onclick="turnPrevious();" title="上一页" id="previous">
+            <button class="toolbarButton pageUp" title="上一页" id="previous">
             </button>
-            <input type="number" id="pageNumber" class="toolbarField pageNumber toolbarButton" value="1" size="4" min="1" tabindex="15" max="9999999" onkeypress="turnPage(this.value);">
+            <input type="number" id="pageNumber" class="toolbarField pageNumber toolbarButton" value="1" size="4" min="1" tabindex="15" max="9999999">
             <label id="pageNumberLabel" class="toolbarLabel toolbarButton" for="pageNumber">页面：</label>
         </div>
         <div class="magazine-viewport">
@@ -52,8 +52,8 @@
             </div>
         </div>
         <!-- Thumbnails -->
-        <div class="thumbnails" id="thumbnails">
-            <div>
+        <div class="thumbnails">
+            <div id="thumbnails">
                 <ul>
                     <li class="i">
                         <img src="images/1-thumb.jpg" width="76" height="100" class="page-1" />
@@ -90,9 +90,7 @@
                     </li>
                 </ul>
             </div>
-        </div>
-        <div class="thumbnails" id="outlines">
-            <div>
+            <div id="outlines">
                 <ul>
                     <li class="i">
                         <div><h2>拉斯维加斯</h2></div>

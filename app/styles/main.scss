@@ -4,7 +4,9 @@ body {
     margin: 0;
     padding: 0;
 }
-
+#canvas {
+  overflow: hidden;
+}
 .toolbars {
     height: 32px;
     width: 100%;

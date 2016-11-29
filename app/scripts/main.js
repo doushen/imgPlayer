@@ -1,10 +1,18 @@
 'use strict';
 
-// http://code.google.com/p/chromium/issues/detail?id=128488
+/**
+ * 判断是否是chrome
+ * return {Boolean} [description]
+ */
 function isChrome() {
 	return navigator.userAgent.indexOf('Chrome') !== -1;
 }
 
+/**
+ * 禁用控件
+ * @param {[type]} page [description]
+ * return {[type]}  [description]
+ */
 function disableControls(page) {
 	if (page === 1) {
 		$('.previous-button').hide();
@@ -19,12 +27,18 @@ function disableControls(page) {
 	}
 }
 
-// Width of the flipbook when zoomed in
+/**
+ * 最大宽度
+ * return {[type]} [description]
+ */
 function largeMagazineWidth() {
 	return 2214;
 }
 
-// Set the width and height for the viewport
+/**
+ * 视窗大小重置
+ * return {[type]} [description]
+ */
 function resizeViewport() {
 	var width = $(window).width() - $('.thumbnails').width(),
 		height = $(window).height(),
@@ -103,7 +117,11 @@ function resizeViewport() {
 	$('.magazine').addClass('animated');
 }
 
-// Add region
+/**
+ * 添加区域
+ * @param {[type]} region      [description]
+ * @param {[type]} pageElement [description]
+ */
 function addRegion(region, pageElement) {
 
 	var reg = $('<div />', {
@@ -124,7 +142,12 @@ function addRegion(region, pageElement) {
 	reg.appendTo(pageElement);
 }
 
-// Load regions
+/**
+ * 加载区域
+ * @param {[type]} page    [description]
+ * @param {[type]} element [description]
+ * return {[type]}  [description]
+ */
 function loadRegions(page, element) {
 	$.getJSON('images/' + page + '-regions.json').
 	done(function(data) {
@@ -135,7 +158,7 @@ function loadRegions(page, element) {
 	});
 }
 
-/*
+/**
  *	加载
  */
 function loadApp() {
@@ -188,7 +211,7 @@ function loadApp() {
 
 		// The number of pages
 
-		pages: 12,
+		pages: thumbnailsData.length,
 
 		// Events
 
@@ -212,7 +235,7 @@ function loadApp() {
 				$('.thumbnails .page-' + page).
 				parent().
 				addClass('current');
-
+				$('#pageNumber').val(page);
 				// Update the current URI
 
 				window.Hash.go('page/' + page).update();
@@ -232,7 +255,6 @@ function loadApp() {
 			},
 
 			missing: function(event, pages) {
-
 				// Add pages that aren't in the magazine
 				for (var i = 0; i < pages.length; i++) {
 					addPage(pages[i], $(this));
@@ -457,11 +479,77 @@ function loadApp() {
 
 	$('.magazine').addClass('animated');
 }
+/**
+ * 缩略图数据
+ * @type {Array}
+ */
+var thumbnailsData = [{
+	page: 1,
+	thumb: "images/open/1-thumb.jpg",
+	small: "images/open/1.jpg",
+	large: "images/open/1-large.jpg"
+},{
+	page: 2,
+	thumb: "images/open/2-thumb.jpg",
+	small: "images/open/2.jpg",
+	large: "images/open/2-large.jpg"
+},{
+	page: 3,
+	thumb: "images/open/3-thumb.jpg",
+	small: "images/open/3.jpg",
+	large: "images/open/3-large.jpg"
+},{
+	page: 4,
+	thumb: "images/open/4-thumb.jpg",
+	small: "images/open/4.jpg",
+	large: "images/open/4-large.jpg"
+},{
+	page: 5,
+	thumb: "images/open/5-thumb.jpg",
+	small: "images/open/5.jpg",
+	large: "images/open/5-large.jpg"
+},{
+	page: 6,
+	thumb: "images/open/6-thumb.jpg",
+	small: "images/open/6.jpg",
+	large: "images/open/6-large.jpg"
+},{
+	page: 7,
+	thumb: "images/open/7-thumb.jpg",
+	small: "images/open/7.jpg",
+	large: "images/open/7-large.jpg"
+},{
+	page: 8,
+	thumb: "images/open/8-thumb.jpg",
+	small: "images/open/8.jpg",
+	large: "images/open/8-large.jpg"
+},{
+	page: 9,
+	thumb: "images/open/9-thumb.jpg",
+	small: "images/open/9.jpg",
+	large: "images/open/9-large.jpg"
+},{
+	page: 10,
+	thumb: "http://turnjs.com/samples/magazine1/pages/10-thumb.jpg",
+	small: "http://turnjs.com/samples/magazine1/pages/10.jpg",
+	large: "http://turnjs.com/samples/magazine1/pages/10-large.jpg"
+},{
+	page: 11,
+	thumb: "http://turnjs.com/samples/magazine1/pages/11-thumb.jpg",
+	small: "http://turnjs.com/samples/magazine1/pages/11.jpg",
+	large: "http://turnjs.com/samples/magazine1/pages/11-large.jpg"
+},{
+	page: 12,
+	thumb: "http://turnjs.com/samples/magazine1/pages/12-thumb.jpg",
+	small: "http://turnjs.com/samples/magazine1/pages/12.jpg",
+	large: "http://turnjs.com/samples/magazine1/pages/12-large.jpg"
+}];
 
-/*
- * Magazine sample
+/**
+ * 添加页
  */
 function addPage(page, book) {
+	// console.log(page, book);
 	//var id, pages = book.turn('pages');
 
 	// Create a new element for this page
@@ -479,6 +567,12 @@ function addPage(page, book) {
 	}
 }
 
+/**
+ * 加载页
+ * @param {[type]} page        [description]
+ * @param {[type]} pageElement [description]
+ * return {[type]}  [description]
+ */
 function loadPage(page, pageElement) {
 	// Create an image element
 
@@ -506,13 +600,16 @@ function loadPage(page, pageElement) {
 	});
 
 	// Load the page
+	img.attr('src', thumbnailsData[page-1].small);
 
-	img.attr('src', 'images/' + page + '.jpg');
-
-	loadRegions(page, pageElement);
+	//loadRegions(page, pageElement);
 }
 
-// Zoom in / Zoom out
+/**
+ * 放大缩小
+ * @param {[type]} event [description]
+ * return {[type]}  [description]
+ */
 function zoomTo(event) {
 	setTimeout(function() {
 		if ($('.magazine-viewport').data().regionClicked) {
@@ -527,9 +624,11 @@ function zoomTo(event) {
 	}, 1);
 }
 
-
-
-// Process click on a region
+/**
+ * 点击区域
+ * @param {[type]} event [description]
+ * return {[type]}  [description]
+ */
 function regionClick(event) {
 	// var region = $(event.target);
 
@@ -578,10 +677,15 @@ function processRegion(region, regionType) {
 	}
 }
 
-// Load large page
+/**
+ * 加载大页
+ * @param {[type]} page        [description]
+ * @param {[type]} pageElement [description]
+ * return {[type]}  [description]
+ */
 function loadLargePage(page, pageElement) {
 	var img = $('<img />');
-
+	// console.log(thumbnailsData[page-1].large);
 	img.load(function() {
 
 		var prevImg = pageElement.find('img');
@@ -596,13 +700,18 @@ function loadLargePage(page, pageElement) {
 
 	// Loadnew page
 
-	img.attr('src', 'images/' + page + '-large.jpg');
+	img.attr('src', thumbnailsData[page-1].large);
 }
 
-// Load small page
+/**
+ * 加载页
+ * @param {[type]} page        [description]
+ * @param {[type]} pageElement [description]
+ * return {[type]}  [description]
+ */
 function loadSmallPage(page, pageElement) {
 	var img = pageElement.find('img');
-
+	console.log(thumbnailsData[page-1].small);
 	img.css({
 		width: '100%',
 		height: '100%'
@@ -611,9 +720,13 @@ function loadSmallPage(page, pageElement) {
 	img.unbind('load');
 	// Loadnew page
 
-	img.attr('src', 'images/' + page + '.jpg');
+	img.attr('src', thumbnailsData[page-1].small);
 }
 
+/**
+ * 收缩侧边栏
+ * return {[type]} [description]
+ */
 function siderToggle() {
 	$('#sidebarToggle').toggleClass('toggled');
 	var w = ($('.thumbnails').width() === 0) ? 167 : 0;
@@ -626,6 +739,11 @@ function siderToggle() {
 	});
 }
 
+/**
+ * 切换侧边栏
+ * @param {[type]} index [description]
+ * return {[type]}  [description]
+ */
 function switchSider(index) {
 	switch (index) {
 		case 1:
@@ -643,23 +761,28 @@ function switchSider(index) {
 	}
 }
 
+/**
+ * 翻下一页
+ * return {[type]} [description]
+ */
 function turnNext() {
 	$('.magazine').turn('next');
 }
 
+/**
+ * 翻上一页
+ * return {[type]} [description]
+ */
 function turnPrevious() {
 	$('.magazine').turn('previous');
 }
 
+/**
+ * 全屏切换
+ * return {[type]} [description]
+ */
 function fullScreenToggle() {
-	// if(document.fullScreenEnabled)
-	// 	bool = document.fullScreenEnabled;
-	// if(document.mozFullScreenEnabled)
-	// 	bool = document.mozFullScreenEnabled;
-	// if(document.webkitFullScreenEnabled)
-	// 	bool = document.webkitFullScreenEnabled;
 	var bool = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement;
-
 
 	if (bool) {
 		exitFullscreen();
@@ -669,6 +792,11 @@ function fullScreenToggle() {
 	}
 }
 
+/**
+ * 全屏
+ * @param {[type]} element [description]
+ * return {[type]}  [description]
+ */
 function launchFullscreen(element) {
 	if (element.requestFullscreen) {
 		element.requestFullscreen();
@@ -681,6 +809,11 @@ function launchFullscreen(element) {
 	}
 }
 
+/**
+ * 全屏
+ * @param {[type]} element [description]
+ * return {[type]}  [description]
+ */
 function fullScreen(el) {
 	var rfs = el.requestFullScreen || el.webkitRequestFullScreen || el.mozRequestFullScreen || el.msRequestFullScreen;
 	if (typeof rfs !== 'undefined' && rfs) {
@@ -694,7 +827,10 @@ function fullScreen(el) {
 	}
 }
 
-// 判断浏览器种类
+/**
+ * 退出全屏
+ * return {[type]} [description]
+ */
 function exitFullscreen() {
 	if (document.exitFullscreen) {
 		document.exitFullscreen();
@@ -705,6 +841,11 @@ function exitFullscreen() {
 	}
 }
 
+/**
+ * 翻页
+ * @param {[type]} index [description]
+ * return {[type]}  [description]
+ */
 function turnPage(index) {
 	if (event.keyCode === 13) {
 		if ($('.magazine').turn('hasPage', index)) {
@@ -714,12 +855,21 @@ function turnPage(index) {
 	}
 }
 
-// Number of views in a flipbook
+/**
+ * 获取页数
+ * @param {[type]} book [description]
+ * return {[type]}  [description]
+ */
 function numberOfViews(book) {
 	return book.turn('pages') / 2 + 1;
 }
 
-// Current view in a flipbook
+/**
+ * 获取当前页数
+ * @param {[type]} book [description]
+ * @param {[type]} page [description]
+ * return {[type]}  [description]
+ */
 function getViewNumber(book, page) {
 	return parseInt((page || book.turn('page')) / 2 + 1, 10);
 }
@@ -900,8 +1050,8 @@ $('.zoom-icon').bind('mouseover', function() {
 	}
 });
 
-$('.magazine').bind('turning', function(event, page, view) {
-	$('#pageNumber').val(page);
+$('.tree').click(function() {
+	$(this).nextAll("img, span, div").slideToggle();
 });
 
 $('#canvas').hide();

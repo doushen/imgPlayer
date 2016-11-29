@@ -685,7 +685,8 @@ function processRegion(region, regionType) {
  */
 function loadLargePage(page, pageElement) {
 	var img = $('<img />');
-	// console.log(thumbnailsData[page-1].large);
+	// console.log
+	// (thumbnailsData[page-1].large);
 	img.load(function() {
 
 		var prevImg = pageElement.find('img');

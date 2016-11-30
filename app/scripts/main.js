@@ -775,7 +775,7 @@ function loadSmallPage(page, pageElement) {
  */
 function siderToggle() {
 	$('#sidebarToggle').toggleClass('toggled');
-	var w = ($('.thumbnails').width() === 0) ? 167 : 0;
+	var w = ($('.thumbnails').width() === 0) ? 220 : 0;
 	$('.thumbnails').animate({
 		width: w
 	}, {

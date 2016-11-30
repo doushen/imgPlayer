@@ -173,6 +173,39 @@ function loadApp() {
 		return;
 	}
 
+	// 目录展开
+	$('.books-catalog h2').click(function(){
+
+		if( $(this).siblings('ul').is(':hidden') ){
+			$(this).parent().siblings().find('ul').slideUp('slow');
+			$(this).parent().siblings().find('.arrow').css({
+				'background-image':'url(../images/arrows-down.png)',
+				'background-size':'100%'
+			});
+			$(this).siblings('ul').slideDown('slow');
+			$(this).find('.arrow').css({
+				'background-image':'url(../images/arrows-up.png)',
+				'background-size':'100%'
+			});
+		}else{
+			$(this).siblings('ul').slideUp('slow');
+			$(this).find('.arrow').css({
+				'background-image':'url(../images/arrows-down.png)',
+				'background-size':'100%'
+			});
+		}
+
+	})
+
+	$('.books-catalog ul h3').click(function(){
+		if( $(this).siblings().is(':hidden') ){
+			$(this).siblings().slideDown('slow');
+		}else{
+			$(this).siblings().slideUp('slow');
+		}
+		
+	})
+
 	// Create the flipbook
 
 	flipbook.turn({
@@ -226,6 +259,18 @@ function loadApp() {
 				// Show and hide navigation buttons
 
 				disableControls(page);
+
+				//目录
+				var parentsEle = $('.thumbnails .page-' + page).parents('.books-catalog');
+				$('.thumbnails .books-catalog').removeClass('activate');
+				parentsEle.siblings().find('ul').slideUp('slow')
+				parentsEle.addClass('activate').find('ul').slideDown('slow');
+				parentsEle.find('.arrow').css({
+					'background-image':'url(../images/arrows-up.png)',
+					'background-size':'100%'
+				});
+				$('.thumbnails').find('h3').removeClass();
+				$('.thumbnails .page-' + page).parents('li').find('h3').addClass('title-hover');
 
 
 				$('.thumbnails .page-' + currentPage).
@@ -416,7 +461,7 @@ function loadApp() {
 		}
 	});
 
-	$('.thumbnails li').
+	$('.thumbnails .cover-pic').
 	bind($.mouseEvents.over, function() {
 		$(this).addClass('thumb-hover');
 	}).bind($.mouseEvents.out, function() {

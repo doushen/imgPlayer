@@ -401,9 +401,11 @@ h1,h2,h3,h4,ul,ul li,span,img{
         }
     }
     .cover-pic{
-        margin: 0 25px;
+        margin: 0 auto;
         text-align: center;
-        display: inline-block;
+        display: block;
+        width: 108px;
+        font-size: 0;
         -webkit-transition: -webkit-transform 60ms;
         -moz-transition: -webkit-transform 60ms;
         -o-transition: -webkit-transform 60ms;
@@ -411,11 +413,13 @@ h1,h2,h3,h4,ul,ul li,span,img{
         transition: -webkit-transform 60ms;
         img{
             float: left;
+            ////display: inline-block;
         }
         span{
             clear: both;
             display: block;
             padding-top: 5px;
+            font-size: 10px;
         }
 
     }

@@ -351,7 +351,7 @@ h1,h2,h3,h4,ul,ul li,span,img{
         .books-catalog{
             border-top: 1px solid #383838;
             h2{
-                font-size: 20px;
+                font-size: 14px;
                 height: 45px;
                 line-height: 45px;
                 background: #535353;
@@ -385,7 +385,7 @@ h1,h2,h3,h4,ul,ul li,span,img{
                 li{
                     list-style: none;
                     h3{
-                        font-size: 16px;
+                        font-size: 10px;
                         cursor: pointer;
                         margin-top: 10px;
                         margin-left: 25px;
@@ -442,15 +442,6 @@ h1,h2,h3,h4,ul,ul li,span,img{
 
     .title-hover{
         color: #04BDBF;
-        span{
-            display: block;
-            background-image: url(../images/smallTitle-icon-activate.png);
-            background-size: 16px;
-            width: 16px;
-            height: 16px;
-            float: left;
-            margin-right: 10px;
-        }
     }
 
     .current {

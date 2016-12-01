@@ -124,22 +124,22 @@ function resizeViewport() {
  */
 function addRegion(region, pageElement) {
 
-	var reg = $('<div />', {
-			'class': 'region  ' + region.class
-		}),
-		options = $('.magazine').turn('options'),
-		pageWidth = options.width / 2,
-		pageHeight = options.height;
+	// var reg = $('<div />', {
+	// 		'class': 'region  ' + region.class
+	// 	}),
+	// 	options = $('.magazine').turn('options'),
+	// 	pageWidth = options.width / 2,
+	// 	pageHeight = options.height;
 
-	reg.css({
-		top: Math.round(region.y / pageHeight * 100) + '%',
-		left: Math.round(region.x / pageWidth * 100) + '%',
-		width: Math.round(region.width / pageWidth * 100) + '%',
-		height: Math.round(region.height / pageHeight * 100) + '%'
-	}).attr('region-data', $.param(region.data || ''));
+	// reg.css({
+	// 	top: Math.round(region.y / pageHeight * 100) + '%',
+	// 	left: Math.round(region.x / pageWidth * 100) + '%',
+	// 	width: Math.round(region.width / pageWidth * 100) + '%',
+	// 	height: Math.round(region.height / pageHeight * 100) + '%'
+	// }).attr('region-data', $.param(region.data || ''));
 
 
-	reg.appendTo(pageElement);
+	// reg.appendTo(pageElement);
 }
 
 /**
@@ -149,13 +149,13 @@ function addRegion(region, pageElement) {
  * return {[type]}  [description]
  */
 function loadRegions(page, element) {
-	$.getJSON('images/' + page + '-regions.json').
-	done(function(data) {
+	// $.getJSON('images/' + page + '-regions.json').
+	// done(function(data) {
 
-		$.each(data, function(key, region) {
-			addRegion(region, element);
-		});
-	});
+	// 	$.each(data, function(key, region) {
+	// 		addRegion(region, element);
+	// 	});
+	// });
 }
 
 /**
@@ -283,7 +283,7 @@ function loadApp() {
 				$('#pageNumber').val(page);
 				// Update the current URI
 
-				window.Hash.go('page/' + page).update();
+				Hash.go('page/' + page).update();
 
 			},
 
@@ -423,7 +423,7 @@ function loadApp() {
 	});
 
 
-	window.Hash.on('^page\/([0-9]*)$', {
+	Hash.on('^page\/([0-9]*)$', {
 		yep: function(path, parts) {
 			var page = parts[1];
 
@@ -1010,7 +1010,7 @@ function calculateBound(d) {
 
 document.addEventListener('fullscreenchange', function(e) {
 	var bool = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement;
-	if (bool) {
+	if(bool) {
 		$('#presentationMode').addClass('toggled');
 	} else {
 		$('#presentationMode').removeClass('toggled');
@@ -1101,5 +1101,3 @@ $('.tree').click(function() {
 });
 
 $('#canvas').hide();
-
-loadApp();

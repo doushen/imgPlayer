@@ -33,6 +33,12 @@
             </button>
             <button id="presentationMode" class="toolbarButton presentationMode hiddenLargeView" title="切换到演示模式" tabindex="2">
             </button>
+            <button id="singleReadingMode" class="toolbarButton" title="切换单页阅读" tabindex="5">
+            </button>
+            <button id="doubleReadingMode" class="toolbarButton toggled" title="切换双页阅读" tabindex="6">
+            </button>
+            <button id="print" class="toolbarButton" title="打印" tabindex="7">
+            </button>
             <div class="toolbarButtonSpacer toolbarButton"></div>
             <button class="toolbarButton pageDown" title="下一页" id="next">
             </button>
@@ -77,7 +83,7 @@
                 <div class="books-catalog d">
                     <div class="cover-pic">
                         <img src="images/open/6-thumb.jpg" width="54" height="70" class="page-6" />
-                        <img src="images/open/2-thumb.jpg" width="54" height="70" class="page-7" />
+                        <img src="images/open/7-thumb.jpg" width="54" height="70" class="page-7" />
                         <span>6 - 7</span>
                     </div>
                 </div>
@@ -91,7 +97,7 @@
             </div>
             <div id="outlines">
                 
-                <div class="books-catalog i">
+                <!-- <div class="books-catalog i">
                     <h2>
                         <span class="icon"></span>
                         拉斯维加斯
@@ -161,7 +167,7 @@
                             </div>
                         </li>
                     </ul>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -175,35 +181,44 @@
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:js scripts/main.js -->
-    <script id="booksList" type="text/x-handlebars-template">
-        <!-- <div id="outlines">
-            {{#each this.booksCatalog}}
-                <div class="books-catalog">
-                    <h2>
-                        <span class="icon"></span>
-                        {{title}}
-                        <i class="arrow"></i>
-                    </h2>
-                    <ul>
-                        {{#each chapter}}
-                        <li>
-                            <h3>{{samllTitle}}</h3>
-                            <div>
-                                <div class="cover-pic">
-                                    {{#each img}}
-                                        <img src="images/open/{{this}}" width="54" height="70" class="page-1" />
-                                    {{/each}}
-                                    <span>1</span>
-                                </div>
-                            </div>
-                        </li>
-                        {{/each}}
-                    </ul>
+    <!-- <script id="thumbnailList" type="text/x-handlebars-template">
+        {{#each this}}
+            <div class="books-catalog">
+                <div class="cover-pic">
+                    <img src="{{small}}" width="54" height="70" class="page-{{page}}" />
+                    <span>{{page}}</span>
                 </div>
-            {{/each}}
-        </div> -->
+            </div>
+        {{/each}}
+    </script> -->
+    <script id="outlineList" type="text/x-handlebars-template">
+        {{#each this.booksCatalog}}
+            <div class="books-catalog">
+                <h2>
+                    <span class="icon"></span>
+                    {{title}}
+                    <i class="arrow"></i>
+                </h2>
+                <ul>
+                    {{#each chapter}}
+                    <li>
+                        <h3>{{samllTitle}}</h3>
+                        <div>
+                            <div class="cover-pic">
+                                {{#each img}}
+                                    <img src="images/open/{{pic}}" width="54" height="70" class="page-{{page}}" />
+                                {{/each}}
+                                <span>{{img.page}}</span>
+                                
+                            </div>
+                        </div>
+                    </li>
+                    {{/each}}
+                </ul>
+            </div>
+        {{/each}}
     </script>
-    <!-- // <script src="scripts/dataBinding.js"></script> -->
+    <script src="scripts/dataBinding.js"></script>
     <script src="scripts/main.js"></script>
     <!-- endbuild -->
 </body>

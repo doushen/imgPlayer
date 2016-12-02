@@ -5,7 +5,11 @@ var booksList = {
             "chapter": 
             [{
             	"samllTitle": "",
-            	"img": ["1-thumb.jpg"]
+            	"img": 
+            	[{
+					"pic": "1-thumb.jpg",
+					"page": 1
+				}]
 	        }]
         },
         {
@@ -13,7 +17,15 @@ var booksList = {
             "chapter": 
             [{
                 "samllTitle": "第一节",
-                "img": ["2-thumb.jpg", "3-thumb.jpg"]
+                "img": 
+                [{
+					"pic": "2-thumb.jpg",
+					"page": 2
+				},
+				{
+					"pic": "3-thumb.jpg",
+					"page": 3
+				}]
             }]
         },
         {
@@ -21,18 +33,37 @@ var booksList = {
             "chapter": 
             [{
                 "samllTitle": "第一节",
-                "img": ["4-thumb.jpg", "5-thumb.jpg"]
+                "img": 
+                [{
+					"pic": "4-thumb.jpg",
+					"page": 4
+				},
+				{
+					"pic": "5-thumb.jpg",
+					"page": 5
+				}]
             },
             {
                 "samllTitle": "第二节",
-                "img": ["6-thumb.jpg", "7-thumb.jpg"]
+                "img": 
+                [{
+					"pic": "6-thumb.jpg",
+					"page": 6
+				},
+				{
+					"pic": "7-thumb.jpg",
+					"page": 7
+				}]
             }]
         },
-    ],
+    ]
 }
 
 /**
  * 图书目录
 **/
-var template = Handlebars.compile($("#booksList").html());
-$(".thumbnails").html(template(booksList));
+// var thumbnailHTML = Handlebars.compile($("#thumbnailList").html());
+// $("#thumbnails").html(thumbnailHTML(thumbnailsData)); //缩略图
+
+var outlineHTML = Handlebars.compile($("#outlineList").html());
+$("#outlines").html(outlineHTML(booksList)); //目录大纲

@@ -4,10 +4,11 @@ body {
     margin: 0;
     padding: 0;
 }
-h1,h2,h3,h4,ul,ul li,span,img{
+h1,h2,h3,h4,ul,ul li,span,img,em{
     font-weight: normal;
     margin: 0;
     padding: 0;
+    font-style: normal;
 }
 #canvas {
   overflow: hidden;
@@ -102,6 +103,24 @@ h1,h2,h3,h4,ul,ul li,span,img{
         height: 25px;
         content: url(../images/toolbarButton-presentationMode.png);
         //background: transparent url(../images/toolbarButton-presentationMode.png) center no-repeat;
+    }
+    .toolbarButton#singleReadingMode::before{
+        border: 0;
+        width: 32px;
+        height: 25px;
+        content: url(../images/icon-single.png);
+    }
+    .toolbarButton#doubleReadingMode::before{
+        border: 0;
+        width: 32px;
+        height: 25px;
+        content: url(../images/icon-double.png);
+    }
+    .toolbarButton#print::before{
+        border: 0;
+        width: 32px;
+        height: 25px;
+        content: url(../images/icon-print.png);
     }
     .toolbarButtonSpacer {
         width: 30px;

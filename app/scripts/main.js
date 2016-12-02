@@ -214,7 +214,8 @@ function loadApp() {
 
 		width: 1000,
 
-		// display: 'single',
+		// display: 'single',//单页
+		// display: 'double',//双页
 
 		// direction: 'rtl',
 
@@ -262,8 +263,11 @@ function loadApp() {
 
 				//目录
 				var parentsEle = $('.thumbnails .page-' + page).parents('.books-catalog');
-				$('.thumbnails .books-catalog').removeClass('activate');
-				parentsEle.siblings().find('ul').slideUp('slow')
+				$('.thumbnails .books-catalog').removeClass('activate').find('.arrow').css({
+					'background-image':'url(../images/arrows-down.png)',
+					'background-size':'100%'
+				});
+				parentsEle.siblings().find('ul').slideUp('slow');
 				parentsEle.addClass('activate').find('ul').slideDown('slow');
 				parentsEle.find('.arrow').css({
 					'background-image':'url(../images/arrows-up.png)',
@@ -886,6 +890,24 @@ function exitFullscreen() {
 		document.webkitExitFullscreen();
 	}
 }
+/**
+ * 单双页阅读
+ * @param {[type]} index [description]
+ */
+function readingMode( index ){
+	switch (index) {
+		case 1:
+			$('.magazine').turn("display", 'single');
+			$('#singleReadingMode').addClass('toggled');
+			$('#doubleReadingMode').removeClass('toggled');
+			break;
+		case 2:
+			$('.magazine').turn("display", 'double');
+			$('#doubleReadingMode').addClass('toggled');
+			$('#singleReadingMode').removeClass('toggled');
+			break;
+	}
+}
 
 /**
  * 翻页
@@ -1071,6 +1093,16 @@ $('#previous').click(function() {
 $('#pageNumber').keypress(function() {
 	turnPage(this.value);
 });
+
+$('#singleReadingMode').click(function(){
+	readingMode(1)
+})
+
+$('#doubleReadingMode').click(function(){
+	readingMode(2)
+})
+
+
 
 // Zoom icon
 $('.zoom-icon').bind('mouseover', function() {

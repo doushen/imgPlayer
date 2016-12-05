@@ -10,6 +10,10 @@ h1,h2,h3,h4,ul,ul li,span,img,em{
     padding: 0;
     font-style: normal;
 }
+.browserupgrade{
+    position: absolute; 
+    top: 13px;
+}
 #canvas {
   overflow: hidden;
 }
@@ -22,18 +26,23 @@ h1,h2,h3,h4,ul,ul li,span,img,em{
     z-index: 9999;
     background-color: #474747;
     .toolbarButton {
+        width: 26px;
+        height: 26px;
         float: right;
         display: inline-block;
         margin-top: 3px;
-        padding-top: 5px;
+        ///padding-top: 5px;
         border: 0;
         outline-width: 0;
         margin-left: 5px;
         background-color: transparent;
+        background-repeat: no-repeat;
+        background-position: 5px;
     }
     .toolbarButton.toggled,
     .splitToolbarButton.toggled > .toolbarButton.toggled,
     .secondaryToolbarButton.toggled {
+        filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#3f000000,endColorstr=#3f000000);
         background-color: hsla(0, 0%, 0%, .3);
         background-image: linear-gradient(hsla(0, 0%, 100%, .05), hsla(0, 0%, 100%, 0));
         border-color: hsla(0, 0%, 0%, .4) hsla(0, 0%, 0%, .45) hsla(0, 0%, 0%, .5);
@@ -45,32 +54,23 @@ h1,h2,h3,h4,ul,ul li,span,img,em{
         transition-duration: 10ms;
         transition-timing-function: linear;
     }
-    .toolbarButton#sidebarToggle::before {
-        border: 0;
-        width: 32px;
-        height: 25px;
-        content: url(../images/toolbarButton-sidebarToggle-rtl.png);
-        //background: transparent url(../images/toolbarButton-sidebarToggle-rtl.png) center no-repeat;
+    .toolbarButton#sidebarToggle{
+        ////content: url(../images/toolbarButton-sidebarToggle-rtl.png);
+        background-image: url(../images/toolbarButton-sidebarToggle-rtl.png);
         // @media screen and (min-resolution: 2dppx){
         //   background: transparent url(../images/toolbarButton-sidebarToggle-rtl@2x.png);
         // }
     }
-    .toolbarButton.pageDown::before {
-        border: 0;
-        width: 32px;
-        height: 25px;
-        content: url(../images/toolbarButton-pageDown.png);
-        //background: transparent url(../images/toolbarButton-pageDown.png) center no-repeat;
+    .toolbarButton.pageDown{
+        ////content: url(../images/toolbarButton-pageDown.png);
+        background-image: url(../images/toolbarButton-pageDown.png);
         // @media screen and (min-resolution: 2dppx){
         //     background: transparent url(../images/toolbarButton-pageDown@2x.png);
         // }
     }
-    .toolbarButton.pageUp::before {
-        border: 0;
-        width: 32px;
-        height: 25px;
-        content: url(../images/toolbarButton-pageUp.png);
-        //background: transparent url(../images/toolbarButton-pageUp.png) center no-repeat;
+    .toolbarButton.pageUp{
+        ////content: url(../images/toolbarButton-pageUp.png);
+        background-image: url(../images/toolbarButton-pageUp.png);
         // @media screen and (min-resolution: 2dppx){
         //     background: transparent url(../images/toolbarButton-pageUp@2x.png);
         // }
@@ -79,9 +79,12 @@ h1,h2,h3,h4,ul,ul li,span,img,em{
         color: #fff;
     }
     .toolbarField {
-        padding: 3px 6px;
-        margin: 4px 0 4px 0;
-        border: 1px solid transparent;
+        width: 32px;
+        height: 24px;
+        padding: 0 6px;
+        ////margin: 4px 0 4px 0;
+        filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#0f000000,endColorstr=#0f000000);
+        border: 1px solid #2C2C2C;
         border-radius: 2px;
         background-color: hsla(0, 0%, 100%, .09);
         background-image: linear-gradient(hsla(0, 0%, 100%, .05), hsla(0, 0%, 100%, 0));
@@ -91,36 +94,36 @@ h1,h2,h3,h4,ul,ul li,span,img,em{
         box-shadow: 0 1px 0 hsla(0, 0%, 0%, .05) inset, 0 1px 0 hsla(0, 0%, 100%, .05);
         color: hsl(0, 0%, 95%);
         font-size: 12px;
-        line-height: 14px;
+        line-height: 24px;
         outline-style: none;
         transition-property: background-color, border-color, box-shadow;
         transition-duration: 150ms;
         transition-timing-function: ease;
     }
-    .toolbarButton#presentationMode::before {
-        border: 0;
-        width: 32px;
-        height: 25px;
-        content: url(../images/toolbarButton-presentationMode.png);
-        //background: transparent url(../images/toolbarButton-presentationMode.png) center no-repeat;
+    .toolbarLabel{
+        width: 48px;
+        line-height: 26px;
     }
-    .toolbarButton#singleReadingMode::before{
+    .toolbarButton#presentationMode{
         border: 0;
         width: 32px;
         height: 25px;
-        content: url(../images/icon-single.png);
+        ////content: url(../images/toolbarButton-presentationMode.png);
+        background-image: url(../images/toolbarButton-presentationMode.png);
     }
-    .toolbarButton#doubleReadingMode::before{
-        border: 0;
-        width: 32px;
-        height: 25px;
-        content: url(../images/icon-double.png);
+    .toolbarButton#singleReadingMode{
+        ////content: url(../images/icon-single.png);
+        background-image: url(../images/icon-single.png);
+        background-position: 7px 5px;
     }
-    .toolbarButton#print::before{
-        border: 0;
-        width: 32px;
-        height: 25px;
-        content: url(../images/icon-print.png);
+    .toolbarButton#doubleReadingMode{
+        ////content: url(../images/icon-double.png);
+        background-image: url(../images/icon-double.png);
+        background-position: 8px 5px;
+    }
+    .toolbarButton#print{
+        ////content: url(../images/icon-print.png);
+        background-image: url(../images/icon-print.png);
     }
     .toolbarButtonSpacer {
         width: 30px;
@@ -135,13 +138,15 @@ h1,h2,h3,h4,ul,ul li,span,img,em{
         .toolbarButton {
           margin-right: 5px;
         }
-        #viewThumbnail::before {
-            content: url(../images/toolbarButton-viewThumbnail.png);
-            //background: transparent url(../images/toolbarButton-viewThumbnail.png) center no-repeat;
+        #viewThumbnail {
+            ////content: url(../images/toolbarButton-viewThumbnail.png);
+            background-image: url(../images/toolbarButton-viewThumbnail.png);
         }
-        #viewOutline::before {
-            content: url(../images/toolbarButton-viewOutline.png);
-            //background: transparent url(../images/toolbarButton-viewOutline.png) center no-repeat;
+        #viewOutline{
+            ////content: url(../images/toolbarButton-viewOutline.png);
+            background-image: url(../images/toolbarButton-viewOutline.png);
+            
+            
         }
     }
 }
@@ -348,23 +353,20 @@ h1,h2,h3,h4,ul,ul li,span,img,em{
     display: inline-block;
     float: right;
     background-color: #383838;
-    top: 0;
-    right: 0;
     width: 220px;
-    padding-top: 32px;
     z-index: 999;
     color: #CECFCF;
     > div {
         width: 100%;
+        height: 94%; //IE
         height: calc(100% - 32px);
         height: -webkit-calc(100% - 32px);
         height: -moz-calc(100% - 32px);
         height: -ms-calc(100% - 32px);
         height: -o-calc(100% - 32px);
-        ////height: 100%;
         display: block;
         margin: 0px;
-
+        margin-top: 32px;
         overflow-x: hidden;
         overflow-y: auto;
         .books-catalog{
@@ -473,6 +475,7 @@ h1,h2,h3,h4,ul,ul li,span,img,em{
         -ms-box-shadow: 0 0 10px #04BDBF;
         -o-box-shadow: 0 0 10px #04BDBF;
         box-shadow: 0 0 10px #04BDBF;
+        border: 1px solid #04BDBF;
     }
 
     .thumb-hover {
@@ -484,7 +487,7 @@ h1,h2,h3,h4,ul,ul li,span,img,em{
         transform: scale3d(1.2, 1.2, 1);
     }
 }
-.thumbnails#outlines {
+#outlines {
   display: none;
 }
 .thumbanils-touch ul {

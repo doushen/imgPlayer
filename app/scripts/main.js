@@ -27,6 +27,36 @@ function disableControls(page) {
 	}
 }
 
+/*
+ * 阅读标识
+*/
+function currentReading(page, currentPage){
+	var removeEle = $('.thumbnails .page-' + currentPage);
+	var addEle = $('.thumbnails .page-' + page);
+
+    removeEle.parent().removeClass('current');
+    removeEle.parents('li').find('h3').removeClass('title-hover');
+    removeEle.parents('.books-catalog').removeClass('activate');
+    removeEle.parents('.books-catalog').find('h2 i').css({
+        'background-image':'url(../images/arrows-down.png)',
+        'background-size':'100%'
+    })
+    if(removeEle.parents('.books-catalog').find('ul').is(':hidden'))
+    	removeEle.parents('.books-catalog').find('ul').css('display',"none");
+    
+
+    addEle.parent().addClass('current');
+    addEle.parents('li').find('h3').addClass('title-hover');
+    addEle.parents('.books-catalog').addClass('activate');
+    addEle.parents('.books-catalog').find('h2 i').css({
+        'background-image':'url(../images/arrows-up.png)',
+        'background-size':'100%'
+    })
+    addEle.parents('.books-catalog').find('ul').slideDown('slow');
+
+    $('#pageNumber').val(page);
+}
+
 /**
  * 最大宽度
  * return {[type]} [description]
@@ -158,376 +188,6 @@ function loadRegions(page, element) {
 	// });
 }
 
-/**
- *	加载
- */
-function loadApp() {
-	$('#canvas').fadeIn(1000);
-
-	var flipbook = $('.magazine');
-
-	// Check if the CSS was already loaded
-
-	if (flipbook.width() === 0 || flipbook.height() === 0) {
-		setTimeout(loadApp, 10);
-		return;
-	}
-
-	// 目录展开
-	$('.books-catalog h2').click(function(){
-
-		if( $(this).siblings('ul').is(':hidden') ){
-			$(this).parent().siblings().find('ul').slideUp('slow');
-			$(this).parent().siblings().find('.arrow').css({
-				'background-image':'url(../images/arrows-down.png)',
-				'background-size':'100%'
-			});
-			$(this).siblings('ul').slideDown('slow');
-			$(this).find('.arrow').css({
-				'background-image':'url(../images/arrows-up.png)',
-				'background-size':'100%'
-			});
-		}else{
-			$(this).siblings('ul').slideUp('slow');
-			$(this).find('.arrow').css({
-				'background-image':'url(../images/arrows-down.png)',
-				'background-size':'100%'
-			});
-		}
-
-	})
-
-	$('.books-catalog ul h3').click(function(){
-		if( $(this).siblings().is(':hidden') ){
-			$(this).siblings().slideDown('slow');
-		}else{
-			$(this).siblings().slideUp('slow');
-		}
-		
-	})
-
-	// Create the flipbook
-
-	flipbook.turn({
-
-		// Magazine width
-
-		width: 1000,
-
-		// display: 'single',//单页
-		// display: 'double',//双页
-
-		// direction: 'rtl',
-
-		// Magazine height
-
-		height: 650,
-
-		// Duration in millisecond
-
-		duration: 1000,
-
-		// Hardware acceleration
-
-		acceleration: !isChrome(),
-
-		// Enables gradients
-
-		gradients: true,
-
-		// Auto center this flipbook
-
-		autoCenter: true,
-
-		// Elevation from the edge of the flipbook when turning a page
-
-		elevation: 50,
-
-		// The number of pages
-
-		pages: thumbnailsData.length,
-
-		// Events
-
-		when: {
-			turning: function(event, page) {
-
-				var book = $(this),
-					currentPage = book.turn('page');
-
-
-
-				// Show and hide navigation buttons
-
-				disableControls(page);
-
-				//目录
-				var parentsEle = $('.thumbnails .page-' + page).parents('.books-catalog');
-				$('.thumbnails .books-catalog').removeClass('activate').find('.arrow').css({
-					'background-image':'url(../images/arrows-down.png)',
-					'background-size':'100%'
-				});
-				parentsEle.siblings().find('ul').slideUp('slow');
-				parentsEle.addClass('activate').find('ul').slideDown('slow');
-				parentsEle.find('.arrow').css({
-					'background-image':'url(../images/arrows-up.png)',
-					'background-size':'100%'
-				});
-				$('.thumbnails').find('h3').removeClass();
-				$('.thumbnails .page-' + page).parents('li').find('h3').addClass('title-hover');
-
-
-				$('.thumbnails .page-' + currentPage).
-				parent().
-				removeClass('current');
-
-				$('.thumbnails .page-' + page).
-				parent().
-				addClass('current');
-				$('#pageNumber').val(page);
-				// Update the current URI
-
-				Hash.go('page/' + page).update();
-
-			},
-
-			turned: function(event, page) {
-
-				disableControls(page);
-
-				$(this).turn('center');
-
-				if (page === 1) {
-					$(this).turn('peel', 'br');
-				}
-
-			},
-
-			missing: function(event, pages) {
-				// Add pages that aren't in the magazine
-				for (var i = 0; i < pages.length; i++) {
-					addPage(pages[i], $(this));
-				}
-
-			}
-		}
-
-	});
-
-	// Zoom.js
-
-	$('.magazine-viewport').zoom({
-		flipbook: $('.magazine'),
-
-		max: function() {
-
-			return largeMagazineWidth() / $('.magazine').width();
-
-		},
-
-		when: {
-
-			swipeLeft: function() {
-
-				$(this).zoom('flipbook').turn('next');
-
-			},
-
-			swipeRight: function() {
-
-				$(this).zoom('flipbook').turn('previous');
-
-			},
-
-			resize: function(event, scale, page, pageElement) {
-
-				if (scale === 1) {
-					loadSmallPage(page, pageElement);
-				} else {
-					loadLargePage(page, pageElement);
-				}
-
-			},
-
-			zoomIn: function() {
-
-				//$('.thumbnails').hide();
-				$('.made').hide();
-				$('.magazine').removeClass('animated').addClass('zoom-in');
-				$('.zoom-icon').removeClass('zoom-icon-in').addClass('zoom-icon-out');
-
-				// if (!window.escTip && !$.isTouch) {
-				// 	escTip = true;
-
-				// 	$('<div />', {'class': 'exit-message'}).
-				// 		html('<div>Press ESC to exit</div>').
-				// 			appendTo($('body')).
-				// 			delay(2000).
-				// 			animate({opacity:0}, 500, function() {
-				// 				$(this).remove();
-				// 			});
-				// }
-			},
-
-			zoomOut: function() {
-
-				$('.exit-message').hide();
-				//$('.thumbnails').fadeIn();
-				$('.made').fadeIn();
-				$('.zoom-icon').removeClass('zoom-icon-out').addClass('zoom-icon-in');
-
-				setTimeout(function() {
-					$('.magazine').addClass('animated').removeClass('zoom-in');
-					resizeViewport();
-				}, 0);
-
-			}
-		}
-	});
-
-	// Zoom event
-
-	if ($.isTouch) {
-		$('.magazine-viewport').bind('zoom.doubleTap', zoomTo);
-	} else {
-		$('.magazine-viewport').bind('zoom.tap', zoomTo);
-	}
-
-
-	// Using arrow keys to turn the page
-
-	$(document).keydown(function(e) {
-
-		var previous = 37,
-			next = 39,
-			esc = 27;
-
-		switch (e.keyCode) {
-			case previous:
-
-				// left arrow
-				$('.magazine').turn('previous');
-				e.preventDefault();
-
-				break;
-			case next:
-
-				//right arrow
-				$('.magazine').turn('next');
-				e.preventDefault();
-
-				break;
-			case esc:
-
-				$('.magazine-viewport').zoom('zoomOut');
-				e.preventDefault();
-
-				break;
-		}
-	});
-
-
-	Hash.on('^page\/([0-9]*)$', {
-		yep: function(path, parts) {
-			var page = parts[1];
-
-			if (page !== undefined) {
-				if ($('.magazine').turn('is')) {
-					$('.magazine').turn('page', page);
-				}
-			}
-
-		},
-		nop: function() {
-
-			if ($('.magazine').turn('is')) {
-				$('.magazine').turn('page', 1);
-			}
-		}
-	});
-
-
-	$(window).resize(function() {
-		resizeViewport();
-	}).bind('orientationchange', function() {
-		resizeViewport();
-	});
-
-	// Events for thumbnails
-
-	$('.thumbnails').click(function(event) {
-
-		var page;
-
-		if (event.target && (page = /page-([0-9]+)/.exec($(event.target).attr('class')))) {
-
-			$('.magazine').turn('page', page[1]);
-		}
-	});
-
-	$('.thumbnails .cover-pic').
-	bind($.mouseEvents.over, function() {
-		$(this).addClass('thumb-hover');
-	}).bind($.mouseEvents.out, function() {
-		$(this).removeClass('thumb-hover');
-	});
-
-	if ($.isTouch) {
-		$('.thumbnails').
-		addClass('thumbanils-touch').
-		bind($.mouseEvents.move, function(event) {
-			event.preventDefault();
-		});
-	} else {
-		$('.thumbnails ul').mouseover(function() {
-			$('.thumbnails').addClass('thumbnails-hover');
-		}).mousedown(function() {
-			return false;
-		}).mouseout(function() {
-			$('.thumbnails').removeClass('thumbnails-hover');
-		});
-	}
-
-	// Regions
-
-	if ($.isTouch) {
-		$('.magazine').bind('touchstart', regionClick);
-	} else {
-		$('.magazine').click(regionClick);
-	}
-
-	// Events for the next button
-
-	$('.next-button').bind($.mouseEvents.over, function() {
-		$(this).addClass('next-button-hover');
-	}).bind($.mouseEvents.out, function() {
-		$(this).removeClass('next-button-hover');
-	}).bind($.mouseEvents.down, function() {
-		$(this).addClass('next-button-down');
-	}).bind($.mouseEvents.up, function() {
-		$(this).removeClass('next-button-down');
-	}).click(function() {
-		$('.magazine').turn('next');
-	});
-
-	// Events for the next button
-
-	$('.previous-button').bind($.mouseEvents.over, function() {
-		$(this).addClass('previous-button-hover');
-	}).bind($.mouseEvents.out, function() {
-		$(this).removeClass('previous-button-hover');
-	}).bind($.mouseEvents.down, function() {
-		$(this).addClass('previous-button-down');
-	}).bind($.mouseEvents.up, function() {
-		$(this).removeClass('previous-button-down');
-	}).click(function() {
-		$('.magazine').turn('previous');
-	});
-
-	resizeViewport();
-
-	$('.magazine').addClass('animated');
-}
 /**
  * 缩略图数据
  * @type {Array}
@@ -1133,3 +793,37 @@ $('.tree').click(function() {
 });
 
 $('#canvas').hide();
+
+// 文档大纲显示
+$('.books-catalog h2').click(function(){
+
+    if( $(this).siblings('ul').is(':hidden') ){
+        $(this).parent().siblings().find('ul').slideUp('slow');
+        $(this).parent().siblings().find('.arrow').css({
+            'background-image':'url(../images/arrows-down.png)',
+            'background-size':'100%'
+        });
+        $(this).siblings('ul').slideDown('slow');
+        $(this).find('.arrow').css({
+            'background-image':'url(../images/arrows-up.png)',
+            'background-size':'100%'
+        });
+    }else{
+        $(this).siblings('ul').slideUp('slow');
+        $(this).find('.arrow').css({
+            'background-image':'url(../images/arrows-down.png)',
+            'background-size':'100%'
+        });
+    }
+
+})
+
+$('.books-catalog ul h3').click(function(){
+    if( $(this).siblings().is(':hidden') ){
+        $(this).siblings().slideDown('slow');
+    }else{
+        $(this).siblings().slideUp('slow');
+    }
+    
+})
+

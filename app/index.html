@@ -19,6 +19,7 @@
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
 
+    <script src="/libs/handlebars.min.js"></script>
     <script src="/libs/jquery.min.1.7.js"></script>
     <script src="/libs/modernizr.2.5.3.min.js"></script>
     <script src="/libs/hash.js"></script>
@@ -47,18 +48,18 @@
             </button>
             <button id="presentationMode" class="toolbarButton presentationMode hiddenLargeView" title="切换到演示模式" tabindex="2">
             </button>
-            <button id="singleReadingMode" class="toolbarButton" title="切换单页阅读" tabindex="5">
+			<button id="singleReadingMode" class="toolbarButton" title="切换单页阅读">
             </button>
-            <button id="doubleReadingMode" class="toolbarButton toggled" title="切换双页阅读" tabindex="6">
+            <button id="doubleReadingMode" class="toolbarButton toggled" title="切换双页阅读">
             </button>
-            <button id="print" class="toolbarButton" title="打印" tabindex="7">
+            <button id="print" class="toolbarButton" title="打印">
             </button>
             <div class="toolbarButtonSpacer toolbarButton"></div>
             <button class="toolbarButton pageDown" title="下一页" id="next">
             </button>
             <button class="toolbarButton pageUp" title="上一页" id="previous">
             </button>
-            <input type="number" id="pageNumber" class="toolbarField pageNumber toolbarButton" value="1" size="4" min="1" tabindex="1" max="9999999">
+            <input type="number" disabled id="pageNumber" class="toolbarField pageNumber toolbarButton" value="1" size="4" min="1" tabindex="1" max="9999999">
             <label id="pageNumberLabel" class="toolbarLabel toolbarButton" for="pageNumber">页面：</label>
         </div>
         <div class="magazine-viewport">
@@ -74,44 +75,56 @@
         <!-- Thumbnails -->
         <div class="thumbnails">
             <div id="thumbnails">
-                <div class="books-catalog i">
+                <div class="books-catalog">
                     <div class="cover-pic">
                         <img src="images/open/1-thumb.jpg" width="54" height="70" class="page-1" />
                         <span>1</span>
                     </div>
                 </div>
-                <div class="books-catalog d">
+                <div class="books-catalog">
                     <div class="cover-pic">
                         <img src="images/open/2-thumb.jpg" width="54" height="70" class="page-2" />
                         <img src="images/open/3-thumb.jpg" width="54" height="70" class="page-3" />
                         <span>2 - 3</span>
                     </div>
                 </div>
-                <div class="books-catalog d">
+                <div class="books-catalog">
                     <div class="cover-pic">
                         <img src="images/open/4-thumb.jpg" width="54" height="70" class="page-4" />
                         <img src="images/open/5-thumb.jpg" width="54" height="70" class="page-5" />
                         <span>4 - 5</span>
                     </div>
                 </div>
-                <div class="books-catalog d">
+                <div class="books-catalog">
                     <div class="cover-pic">
                         <img src="images/open/6-thumb.jpg" width="54" height="70" class="page-6" />
                         <img src="images/open/7-thumb.jpg" width="54" height="70" class="page-7" />
                         <span>6 - 7</span>
                     </div>
                 </div>
-                <div class="books-catalog d">
+                <div class="books-catalog">
                     <div class="cover-pic">
                         <img src="images/open/8-thumb.jpg" width="54" height="70" class="page-8" />
                         <img src="images/open/9-thumb.jpg" width="54" height="70" class="page-9" />
                         <span>8 - 9</span>
                     </div>
                 </div>
+                <div class="books-catalog">
+                    <div class="cover-pic">
+                        <img src="images/10-thumb.jpg" width="54" height="70" class="page-10" />
+                        <img src="images/11-thumb.jpg" width="54" height="70" class="page-11" />
+                        <span>10 - 11</span>
+                    </div>
+                </div>
+                <div class="books-catalog">
+                    <div class="cover-pic">
+                        <img src="images/12-thumb.jpg" width="54" height="70" class="page-12" />
+                        <span>12</span>
+                    </div>
+                </div>
             </div>
             <div id="outlines">
-                
-                <div class="books-catalog i">
+                <div class="books-catalog">
                     <h2>
                         <span class="icon"></span>
                         拉斯维加斯
@@ -128,7 +141,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="books-catalog d">
+                <div class="books-catalog">
                     <h2>
                         <span class="icon"></span>
                         第一章
@@ -136,7 +149,6 @@
                     </h2>
                     <ul>
                         <li>
-                            <h3></h3>
                             <div>
                                 <div class="cover-pic">
                                     <img src="images/open/2-thumb.jpg" width="54" height="70" class="page-2" />
@@ -148,7 +160,7 @@
                     </ul>
                 </div>
 
-                <div class="books-catalog d">
+                <div class="books-catalog">
                     <h2>
                         <span class="icon"></span>
                         第二章
@@ -182,30 +194,51 @@
                         </li>
                     </ul>
                 </div>
+                <div class="books-catalog">
+                    <h2>
+                        <span class="icon"></span>
+                        第三章
+                        <i class="arrow"></i>
+                    </h2>
+                    <ul>
+                        <li>
+                            <div>
+                                <div class="cover-pic">
+                                    <img src="images/10-thumb.jpg" width="54" height="70" class="page-10" />
+                                    <img src="images/11-thumb.jpg" width="54" height="70" class="page-11" />
+                                    <span>10 - 11</span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="books-catalog">
+                    <h2>
+                        <span class="icon"></span>
+                        结束
+                        <i class="arrow"></i>
+                    </h2>
+                    <ul>
+                        <li>
+                            <div>
+                                <div class="cover-pic">
+                                    <img src="images/12-thumb.jpg" width="54" height="70" class="page-12" />
+                                    <span>12</span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
-    <!-- build:js scripts/vendor.js -->
-    <!-- bower:js -->
-    <script src="/bower_components/turn.js/hash.js"></script>
-    <script src="/bower_components/jquery/dist/jquery.js"></script>
-    <script src="/bower_components/turn.js/turn.js"></script>
-    <script src="/bower_components/turn.js/zoom.js"></script>
-    <script src="/bower_components/handlebars/handlebars.js"></script>
-    <!-- endbower -->
-    <!-- endbuild -->
-    <!-- build:js scripts/main.js -->
-    <!-- <script id="thumbnailList" type="text/x-handlebars-template">
-        {{#each this}}
-            <div class="books-catalog">
-                <div class="cover-pic">
-                    <img src="{{small}}" width="54" height="70" class="page-{{page}}" />
-                    <span>{{page}}</span>
-                </div>
-            </div>
-        {{/each}}
-    </script> -->
-    <!-- <script id="outlineList" type="text/x-handlebars-template">
+    <!-- 模块化数据绑定 -->
+    <!-- 简化目录 -->
+    <!-- <script id="simplified" type="text/x-handlebars-template">
+        
+    </script>-->
+    <!-- 详细目录 -->
+    <!-- <script id="detailed" type="text/x-handlebars-template">
         {{#each this.booksCatalog}}
             <div class="books-catalog">
                 <h2>
@@ -232,10 +265,8 @@
             </div>
         {{/each}}
     </script> -->
-    <script src="scripts/dataBinding.js"></script>
-    <script src="scripts/main.js"></script>
-    <!-- endbuild -->
-    
+
+    <!-- 阅读书 -->
     <script type="text/javascript">
 
         /**
@@ -253,41 +284,7 @@
                 return;
             }
 
-            // 目录展开
-            $('.books-catalog h2').click(function(){
-
-                if( $(this).siblings('ul').is(':hidden') ){
-                    $(this).parent().siblings().find('ul').slideUp('slow');
-                    $(this).parent().siblings().find('.arrow').css({
-                        'background-image':'url(../images/arrows-down.png)',
-                        'background-size':'100%'
-                    });
-                    $(this).siblings('ul').slideDown('slow');
-                    $(this).find('.arrow').css({
-                        'background-image':'url(../images/arrows-up.png)',
-                        'background-size':'100%'
-                    });
-                }else{
-                    $(this).siblings('ul').slideUp('slow');
-                    $(this).find('.arrow').css({
-                        'background-image':'url(../images/arrows-down.png)',
-                        'background-size':'100%'
-                    });
-                }
-
-            })
-
-            $('.books-catalog ul h3').click(function(){
-                if( $(this).siblings().is(':hidden') ){
-                    $(this).siblings().slideDown('slow');
-                }else{
-                    $(this).siblings().slideUp('slow');
-                }
-                
-            })
-
             // Create the flipbook
-
             flipbook.turn({
 
                 // Magazine width
@@ -334,33 +331,11 @@
                         var book = $(this),
                             currentPage = book.turn('page');
 
-
-
                         // Show and hide navigation buttons
 
                         disableControls(page);
 
-                        //目录
-                        var parentsEle = $('.thumbnails .page-' + page).parents('.books-catalog');
-                        $('.thumbnails .books-catalog').removeClass('activate');
-                        parentsEle.siblings().find('ul').slideUp('slow')
-                        parentsEle.addClass('activate').find('ul').slideDown('slow');
-                        parentsEle.find('.arrow').css({
-                            'background-image':'url(../images/arrows-up.png)',
-                            'background-size':'100%'
-                        });
-                        $('.thumbnails').find('h3').removeClass();
-                        $('.thumbnails .page-' + page).parents('li').find('h3').addClass('title-hover');
-
-
-                        $('.thumbnails .page-' + currentPage).
-                        parent().
-                        removeClass('current');
-
-                        $('.thumbnails .page-' + page).
-                        parent().
-                        addClass('current');
-                        $('#pageNumber').val(page);
+                        currentReading(page, currentPage);
                         // Update the current URI
 
                         Hash.go('page/' + page).update();
@@ -609,7 +584,7 @@
             test : Modernizr.csstransforms,
             yep: ['/libs/turn.min.js'],
             nope: ['/libs/turn.html4.min.js'],
-            both: ['/libs/zoom.min.js', 'scripts/main.js', 'styles/main.css'],
+            both: ['/libs/zoom.min.js', 'scripts/dataInteractive.js', 'scripts/main.js', 'styles/main.css'],
             complete: loadApp
         });
     </script>

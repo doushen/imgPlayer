@@ -192,67 +192,67 @@ function loadRegions(page, element) {
  * 缩略图数据
  * @type {Array}
  */
-var thumbnailsData = [{
-	page: 1,
-	thumb: "images/open/1-thumb.jpg",
-	small: "images/open/1.jpg",
-	large: "images/open/1-large.jpg"
-},{
-	page: 2,
-	thumb: "images/open/2-thumb.jpg",
-	small: "images/open/2.jpg",
-	large: "images/open/2-large.jpg"
-},{
-	page: 3,
-	thumb: "images/open/3-thumb.jpg",
-	small: "images/open/3.jpg",
-	large: "images/open/3-large.jpg"
-},{
-	page: 4,
-	thumb: "images/open/4-thumb.jpg",
-	small: "images/open/4.jpg",
-	large: "images/open/4-large.jpg"
-},{
-	page: 5,
-	thumb: "images/open/5-thumb.jpg",
-	small: "images/open/5.jpg",
-	large: "images/open/5-large.jpg"
-},{
-	page: 6,
-	thumb: "images/open/6-thumb.jpg",
-	small: "images/open/6.jpg",
-	large: "images/open/6-large.jpg"
-},{
-	page: 7,
-	thumb: "images/open/7-thumb.jpg",
-	small: "images/open/7.jpg",
-	large: "images/open/7-large.jpg"
-},{
-	page: 8,
-	thumb: "images/open/8-thumb.jpg",
-	small: "images/open/8.jpg",
-	large: "images/open/8-large.jpg"
-},{
-	page: 9,
-	thumb: "images/open/9-thumb.jpg",
-	small: "images/open/9.jpg",
-	large: "images/open/9-large.jpg"
-},{
-	page: 10,
-	thumb: "http://turnjs.com/samples/magazine1/pages/10-thumb.jpg",
-	small: "http://turnjs.com/samples/magazine1/pages/10.jpg",
-	large: "http://turnjs.com/samples/magazine1/pages/10-large.jpg"
-},{
-	page: 11,
-	thumb: "http://turnjs.com/samples/magazine1/pages/11-thumb.jpg",
-	small: "http://turnjs.com/samples/magazine1/pages/11.jpg",
-	large: "http://turnjs.com/samples/magazine1/pages/11-large.jpg"
-},{
-	page: 12,
-	thumb: "http://turnjs.com/samples/magazine1/pages/12-thumb.jpg",
-	small: "http://turnjs.com/samples/magazine1/pages/12.jpg",
-	large: "http://turnjs.com/samples/magazine1/pages/12-large.jpg"
-}];
+// var thumbnailsData = [{
+// 	page: 1,
+// 	thumb: "images/open/1-thumb.jpg",
+// 	small: "images/open/1.jpg",
+// 	large: "images/open/1-large.jpg"
+// },{
+// 	page: 2,
+// 	thumb: "images/open/2-thumb.jpg",
+// 	small: "images/open/2.jpg",
+// 	large: "images/open/2-large.jpg"
+// },{
+// 	page: 3,
+// 	thumb: "images/open/3-thumb.jpg",
+// 	small: "images/open/3.jpg",
+// 	large: "images/open/3-large.jpg"
+// },{
+// 	page: 4,
+// 	thumb: "images/open/4-thumb.jpg",
+// 	small: "images/open/4.jpg",
+// 	large: "images/open/4-large.jpg"
+// },{
+// 	page: 5,
+// 	thumb: "images/open/5-thumb.jpg",
+// 	small: "images/open/5.jpg",
+// 	large: "images/open/5-large.jpg"
+// },{
+// 	page: 6,
+// 	thumb: "images/open/6-thumb.jpg",
+// 	small: "images/open/6.jpg",
+// 	large: "images/open/6-large.jpg"
+// },{
+// 	page: 7,
+// 	thumb: "images/open/7-thumb.jpg",
+// 	small: "images/open/7.jpg",
+// 	large: "images/open/7-large.jpg"
+// },{
+// 	page: 8,
+// 	thumb: "images/open/8-thumb.jpg",
+// 	small: "images/open/8.jpg",
+// 	large: "images/open/8-large.jpg"
+// },{
+// 	page: 9,
+// 	thumb: "images/open/9-thumb.jpg",
+// 	small: "images/open/9.jpg",
+// 	large: "images/open/9-large.jpg"
+// },{
+// 	page: 10,
+// 	thumb: "http://turnjs.com/samples/magazine1/pages/10-thumb.jpg",
+// 	small: "http://turnjs.com/samples/magazine1/pages/10.jpg",
+// 	large: "http://turnjs.com/samples/magazine1/pages/10-large.jpg"
+// },{
+// 	page: 11,
+// 	thumb: "http://turnjs.com/samples/magazine1/pages/11-thumb.jpg",
+// 	small: "http://turnjs.com/samples/magazine1/pages/11.jpg",
+// 	large: "http://turnjs.com/samples/magazine1/pages/11-large.jpg"
+// },{
+// 	page: 12,
+// 	thumb: "http://turnjs.com/samples/magazine1/pages/12-thumb.jpg",
+// 	small: "http://turnjs.com/samples/magazine1/pages/12.jpg",
+// 	large: "http://turnjs.com/samples/magazine1/pages/12-large.jpg"
+// }];
 
 /**
  * 添加页
@@ -762,6 +762,16 @@ $('#doubleReadingMode').click(function(){
 	readingMode(2)
 })
 
+//打印
+$('#print').click(function(){
+	alert("功能还未开发!");
+	// if( $(this).hasClass('toggled') ){
+	// 	$(this).removeClass('toggled');
+	// }else{
+	// 	$(this).addClass('toggled');
+	// }
+	
+})
 
 
 // Zoom icon

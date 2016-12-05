@@ -1,11 +1,4 @@
-// // var thumbnailsData = [{
-// // 	page: 1,
-// // 	thumb: "images/open/1-thumb.jpg",
-// // 	small: "images/open/1.jpg",
-// // 	large: "images/open/1-large.jpg"
-// // }]
-
-// //模拟数据
+//模拟数据
 var booksOutline = {
 	"catalog": [{
 		"title": "第一章",
@@ -63,71 +56,101 @@ var booksOutline = {
 				"page": "7"
 			}]
 		}]
+	},
+	{
+		"title": "第三章",
+		"secondLevelList": [{
+			"smallTitle": "",
+			"content": [{
+				"thumb": "images/open/8-thumb.jpg",
+				"small": "images/open/8.jpg",
+				"large": "images/open/8-large.jpg",
+				"page": "8"
+			},
+			{
+				"thumb": "images/open/9-thumb.jpg",
+				"small": "images/open/9.jpg",
+				"large": "images/open/9-large.jpg",
+				"page": "9"
+			},
+			{
+				"thumb": "images/10-thumb.jpg",
+				"small": "images/10.jpg",
+				"large": "images/10-large.jpg",
+				"page": "10"
+			},
+			{
+				"thumb": "images/11-thumb.jpg",
+				"small": "images/11.jpg",
+				"large": "images/11-large.jpg",
+				"page": "11"
+			}]
+		}]
+	},
+	{
+		"title": "结束",
+		"secondLevelList": [{
+			"smallTitle": "",
+			"content": [{
+				"thumb": "images/12-thumb.jpg",
+				"small": "images/12.jpg",
+				"large": "images/12-large.jpg",
+				"page": "12"
+			}]
+		}]
 	}]
 }
 
-// console.log(booksOutline);
+//创建新的图片展示数据结构
+var thumbnailsData = new Array();
+function exhibitionData(){
+	for( var i = 0; i < booksOutline.catalog.length; i++ ){
+		for( var j = 0; j < booksOutline.catalog[i].secondLevelList.length; j++ ){
+			for( var k = 0; k < booksOutline.catalog[i].secondLevelList[j].content.length; k++ ){
+				thumbnailsData.push(booksOutline.catalog[i].secondLevelList[j].content[k]);
+			}
+		}
+	}
+}
+exhibitionData();
 
-// Handlebars.registerHelper("list", function (str) {
-// 	var html = "";
-// 	var len = str.length;
-// 	var page = "";
-// 	var content;
-// 	// console.log(len);
-// 	if( len <= 2 ){
-// 		for( var i = 0; i < len; i ++ ){
-// 			html += '<img src="'+ str[i].small +'" width="54" height="70" class="page-'+ str[i].page +'" />';
-// 			page += str[i].page + ' - ';
-// 		}
-// 		content = '<div class="books-catalog"><div class="cover-pic">'+ html +'<span>'+ page.substr(0, page.length-2) +'</span></div></div';
-// 	}else{
-// 		var text = '';
-// 		var text1 = '';
-// 		var html1 = '';
-// 		var page1 = '';
-// 		for( var i = 0; i < len; i ++ ){
+//缩略图片展示模板
+Handlebars.registerHelper("list", function (str) {
 
-// 			if( i % 2 != 0 ){
-// 				console.log(1)
-// 				html += '<img src="'+ str[i].small +'" width="54" height="70" class="page-'+ str[i].page +'" />';
-// 				page += str[i].page + ' - ';
+	var templateHTML = '';
+	var k = 0;
+	if( str.length < 2 ){
+		var html = "";
+		var page = "";
+		for( var i = 0; i < str.length; i ++ ){
+			html += '<img src="'+ str[k].small +'" width="54" height="70" class="page-'+ str[k].page +'" />';
+			page += str[k].page + ' - ';
 
-// 			}else{
-// 				console.log(2)
-// 				html1 += '<img src="'+ str[i].small +'" width="54" height="70" class="page-'+ str[i].page +'" />';
-// 				page1 += str[i].page + ' - ';
-				
-// 			}
-
-// 			text = '<div class="books-catalog"><div class="cover-pic">'+ html +'<span>'+ page.substr(0, page.length-2) +'</span></div></div>';
-// 			text1 = '<div class="books-catalog"><div class="cover-pic">'+ html1 +'<span>'+ page1.substr(0, page1.length-2) +'</span></div></div>';
-
-
-// 		}
-
-// 		console.log(text)
-
-// 		content = text + text1;
-// 	}
-
-// 	return content;
-
-// 	// switch( str.length ){
-// 	// 	case 'link':
-
-// 	// 	window.open(data.url);
-
-// 	// 	break;
-// 	// }
-
-// })
+		}
+		templateHTML = '<div class="cover-pic">' + html + '<span>'+ page.substr(0, page.length-2) +'</span></div>';
+	}else{
+		for( var i = 0; i < Math.ceil(str.length / 2); i++ ){
+			var html = "";
+			var page = "";
+			for( var j = 0; j < 2; j ++ ){
+				if( k < str.length ){
+					html += '<img src="'+ str[k].small +'" width="54" height="70" class="page-'+ str[k].page +'" />';
+					page += str[k].page + ' - ';
+				}
+				k ++;
+			}
+			templateHTML += '<div class="cover-pic">' + html + '<span>'+ page.substr(0, page.length-2) +'</span></div>';
+		}
+	}
+	return templateHTML;
+})
 
 
-// /**
-//  * 大纲列表
-// **/
-// var simplifiedTemplate  = Handlebars.compile($("#simplified").html());
-// $("#thumbnails").html(simplifiedTemplate(booksOutline)); //缩略图
+/**
+ * 大纲列表
+**/
+var simplifiedTemplate  = Handlebars.compile($("#simplified").html());
+$("#thumbnails").html(simplifiedTemplate(booksOutline)); //缩略图
 
-// // var outlineHTML = Handlebars.compile($("#outlineList").html());
-// // $("#outlines").html(outlineHTML(booksList)); //详情大纲
+var detailedTemplate = Handlebars.compile($("#detailed").html());
+$("#outlines").html(detailedTemplate(booksOutline)); //详情大纲

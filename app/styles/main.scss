@@ -31,7 +31,6 @@ h1,h2,h3,h4,ul,ul li,span,img,em{
         float: right;
         display: inline-block;
         margin-top: 3px;
-        ///padding-top: 5px;
         border: 0;
         outline-width: 0;
         margin-left: 5px;
@@ -55,21 +54,15 @@ h1,h2,h3,h4,ul,ul li,span,img,em{
         transition-timing-function: linear;
     }
     .toolbarButton#sidebarToggle{
-        ////content: url(../images/toolbarButton-sidebarToggle-rtl.png);
         background-image: url(../images/toolbarButton-sidebarToggle-rtl.png);
-        // @media screen and (min-resolution: 2dppx){
-        //   background: transparent url(../images/toolbarButton-sidebarToggle-rtl@2x.png);
-        // }
     }
     .toolbarButton.pageDown{
-        ////content: url(../images/toolbarButton-pageDown.png);
         background-image: url(../images/toolbarButton-pageDown.png);
         // @media screen and (min-resolution: 2dppx){
         //     background: transparent url(../images/toolbarButton-pageDown@2x.png);
         // }
     }
     .toolbarButton.pageUp{
-        ////content: url(../images/toolbarButton-pageUp.png);
         background-image: url(../images/toolbarButton-pageUp.png);
         // @media screen and (min-resolution: 2dppx){
         //     background: transparent url(../images/toolbarButton-pageUp@2x.png);
@@ -82,7 +75,6 @@ h1,h2,h3,h4,ul,ul li,span,img,em{
         width: 32px;
         height: 24px;
         padding: 0 6px;
-        ////margin: 4px 0 4px 0;
         filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#0f000000,endColorstr=#0f000000);
         border: 1px solid #2C2C2C;
         border-radius: 2px;
@@ -108,21 +100,17 @@ h1,h2,h3,h4,ul,ul li,span,img,em{
         border: 0;
         width: 32px;
         height: 25px;
-        ////content: url(../images/toolbarButton-presentationMode.png);
         background-image: url(../images/toolbarButton-presentationMode.png);
     }
     .toolbarButton#singleReadingMode{
-        ////content: url(../images/icon-single.png);
         background-image: url(../images/icon-single.png);
         background-position: 7px 5px;
     }
     .toolbarButton#doubleReadingMode{
-        ////content: url(../images/icon-double.png);
         background-image: url(../images/icon-double.png);
         background-position: 8px 5px;
     }
     .toolbarButton#print{
-        ////content: url(../images/icon-print.png);
         background-image: url(../images/icon-print.png);
     }
     .toolbarButtonSpacer {
@@ -139,14 +127,10 @@ h1,h2,h3,h4,ul,ul li,span,img,em{
           margin-right: 5px;
         }
         #viewThumbnail {
-            ////content: url(../images/toolbarButton-viewThumbnail.png);
             background-image: url(../images/toolbarButton-viewThumbnail.png);
         }
         #viewOutline{
-            ////content: url(../images/toolbarButton-viewOutline.png);
             background-image: url(../images/toolbarButton-viewOutline.png);
-            
-            
         }
     }
 }
@@ -401,7 +385,7 @@ h1,h2,h3,h4,ul,ul li,span,img,em{
             }
 
             ul{
-                padding: 10px 0;
+                padding-bottom: 10px;
                 display: none;
                 li{
                     list-style: none;
@@ -410,19 +394,14 @@ h1,h2,h3,h4,ul,ul li,span,img,em{
                         cursor: pointer;
                         margin-top: 10px;
                         margin-left: 25px;
-                        margin-bottom: 15px;
                     }
-                    .cover-pic{
-                        margin-bottom: 10px
-                    }
-                    
                 }
             }
             
         }
     }
     .cover-pic{
-        margin: 0 auto;
+        margin: 15px auto 0;
         text-align: center;
         display: block;
         width: 108px;
@@ -434,7 +413,6 @@ h1,h2,h3,h4,ul,ul li,span,img,em{
         transition: -webkit-transform 60ms;
         img{
             float: left;
-            ////display: inline-block;
         }
         span{
             clear: both;
@@ -444,9 +422,6 @@ h1,h2,h3,h4,ul,ul li,span,img,em{
         }
 
     }
-    #thumbnails .books-catalog{
-        margin: 15px 0;
-    }
     .books-catalog.activate{
         h2{
             color: #04BDBF;
@@ -455,14 +430,6 @@ h1,h2,h3,h4,ul,ul li,span,img,em{
                 background-size: 19px;
             }
         }
-        ul{
-            ////display: block;
-            h3{
-                
-
-            }
-        }
-
     }
 
     .title-hover{
@@ -496,22 +463,6 @@ h1,h2,h3,h4,ul,ul li,span,img,em{
     -o-transform: none;
     -ms-transform: none;
     transform: none;
-}
-
-.thumbnails-hover ul {
-    /////-webkit-transform: scale3d(0.6, 0.6, 1);
-    ////-moz-transform: scale3d(0.6, 0.6, 1);
-    ////-o-transform: scale3d(0.6, 0.6, 1);
-    ////-ms-transform: scale3d(0.6, 0.6, 1);
-    ////transform: scale3d(0.6, 0.6, 1);
-}
-
-.thumbanils-touch .thumb-hover {
-    ////-webkit-transform: none;
-    ////-moz-transform: none;
-    ////-o-transform: none;
-    ////-ms-transform: none;
-    ////transform: none;
 }
 
 .exit-message {

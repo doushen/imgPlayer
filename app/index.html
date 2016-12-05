@@ -75,7 +75,7 @@
         <!-- Thumbnails -->
         <div class="thumbnails">
             <div id="thumbnails">
-                <div class="books-catalog">
+                <!-- <div class="books-catalog">
                     <div class="cover-pic">
                         <img src="images/open/1-thumb.jpg" width="54" height="70" class="page-1" />
                         <span>1</span>
@@ -121,10 +121,10 @@
                         <img src="images/12-thumb.jpg" width="54" height="70" class="page-12" />
                         <span>12</span>
                     </div>
-                </div>
+                </div> -->
             </div>
             <div id="outlines">
-                <div class="books-catalog">
+                <!-- <div class="books-catalog">
                     <h2>
                         <span class="icon"></span>
                         拉斯维加斯
@@ -140,8 +140,8 @@
                             </div>
                         </li>
                     </ul>
-                </div>
-                <div class="books-catalog">
+                </div> -->
+                <!-- <div class="books-catalog">
                     <h2>
                         <span class="icon"></span>
                         第一章
@@ -228,47 +228,50 @@
                             </div>
                         </li>
                     </ul>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
+
     <!-- 模块化数据绑定 -->
     <!-- 简化目录 -->
-    <!-- <script id="simplified" type="text/x-handlebars-template">
-        
-    </script>-->
-    <!-- 详细目录 -->
-    <!-- <script id="detailed" type="text/x-handlebars-template">
-        {{#each this.booksCatalog}}
+    <script id="simplified" type="text/x-handlebars-template">
+        {{#each this.catalog}}
+            {{#each secondLevelList}}
             <div class="books-catalog">
-                <h2>
-                    <span class="icon"></span>
-                    {{title}}
-                    <i class="arrow"></i>
-                </h2>
-                <ul>
-                    {{#each chapter}}
-                    <li>
-                        <h3>{{samllTitle}}</h3>
-                        <div>
-                            <div class="cover-pic">
-                                {{#each img}}
-                                    <img src="images/open/{{pic}}" width="54" height="70" class="page-{{page}}" />
-                                {{/each}}
-                                <span>{{img.page}}</span>
-                                
-                            </div>
-                        </div>
-                    </li>
-                    {{/each}}
-                </ul>
+                {{#list content}}
+                {{/list}}
             </div>
+            {{/each}}
         {{/each}}
-    </script> -->
+    </script>
+    
+    <!-- 详细目录 -->
+    <script id="detailed" type="text/x-handlebars-template">
+        {{#each this.catalog}}
+        <div class="books-catalog">
+            <h2>
+                <span class="icon"></span>
+                {{title}}
+                <i class="arrow"></i>
+            </h2>
+            {{#each secondLevelList}}
+            <ul>
+                <li>
+                    <h3>{{smallTitle}}</h3>
+                    <div>
+                        {{#list content}}
+                        {{/list}}
+                    </div>
+                </li>
+            </ul>
+            {{/each}}
+        </div>
+        {{/each}}
+    </script>
 
     <!-- 阅读书 -->
     <script type="text/javascript">
-
         /**
          *  加载
          */

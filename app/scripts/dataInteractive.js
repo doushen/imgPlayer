@@ -101,7 +101,11 @@ var booksOutline = {
 	}]
 }
 
-//创建新的图片展示数据结构
+/**
+ * 缩略图数据
+ * 创建新的图片展示数据结构
+ * @type {Array}
+ */
 var thumbnailsData = new Array();
 function exhibitionData(){
 	for( var i = 0; i < booksOutline.catalog.length; i++ ){
@@ -123,18 +127,19 @@ Handlebars.registerHelper("list", function (str) {
 		var html = "";
 		var page = "";
 		for( var i = 0; i < str.length; i ++ ){
-			html += '<img src="'+ str[k].small +'" width="54" height="70" class="page-'+ str[k].page +'" />';
+			html += '<div class="pic-list"><img src="'+ str[k].small +'" width="54" height="70" class="page-'+ str[k].page +'" /><em>'+ str[k].page +'</em></div>';
 			page += str[k].page + ' - ';
 
 		}
 		templateHTML = '<div class="cover-pic">' + html + '<span>'+ page.substr(0, page.length-2) +'</span></div>';
+
 	}else{
 		for( var i = 0; i < Math.ceil(str.length / 2); i++ ){
 			var html = "";
 			var page = "";
 			for( var j = 0; j < 2; j ++ ){
 				if( k < str.length ){
-					html += '<img src="'+ str[k].small +'" width="54" height="70" class="page-'+ str[k].page +'" />';
+					html += '<div class="pic-list"><img src="'+ str[k].small +'" width="54" height="70" class="page-'+ str[k].page +'" /><em>'+ str[k].page +'</em></div>';
 					page += str[k].page + ' - ';
 				}
 				k ++;

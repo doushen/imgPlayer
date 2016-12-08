@@ -9,6 +9,29 @@ function isChrome() {
 }
 
 /**
+ * 识别浏览器
+ */
+function browser(){
+	var userAgent = navigator.userAgent;
+	var isOpera = userAgent.indexOf("Opera") > -1;
+	if(isOpera){
+        return "Opera"
+    }; //判断是否Opera浏览器
+    if(userAgent.indexOf("Firefox") > -1){
+        return "FF";
+    } //判断是否Firefox浏览器
+    if(userAgent.indexOf("Chrome") > -1){
+		return "Chrome";
+	}
+    if(userAgent.indexOf("Safari") > -1){
+        return "Safari";
+    } //判断是否Safari浏览器
+    if(userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1 && !isOpera){
+        return "IE";
+    }; //判断是否IE浏览器
+}
+
+/**
  * 禁用控件
  * @param {[type]} page [description]
  * return {[type]}  [description]
@@ -34,18 +57,26 @@ function currentReading(page, currentPage){
 	var removeEle = $('.thumbnails .page-' + currentPage);
 	var addEle = $('.thumbnails .page-' + page);
 
+    if( addEle.parents('.books-catalog').hasClass('activate') == false ){
+	    removeEle.parents('.books-catalog').find('ul').css({'display':'none'});
+	}
+
     removeEle.parent().removeClass('current');
+    removeEle.parents('.cover-pic').removeClass('current');
     removeEle.parents('li').find('h3').removeClass('title-hover');
     removeEle.parents('.books-catalog').removeClass('activate');
     removeEle.parents('.books-catalog').find('h2 i').css({
         'background-image':'url(../images/arrows-down.png)',
         'background-size':'100%'
     })
-    if(removeEle.parents('.books-catalog').find('ul').is(':hidden'))
-    	removeEle.parents('.books-catalog').find('ul').css('display',"none");
     
 
-    addEle.parent().addClass('current');
+    if( addEle.parents('.thumbnails').hasClass('single_page') ){
+    	addEle.parent().addClass('current');
+    }else{
+    	addEle.parents('.cover-pic').addClass('current');
+    }
+
     addEle.parents('li').find('h3').addClass('title-hover');
     addEle.parents('.books-catalog').addClass('activate');
     addEle.parents('.books-catalog').find('h2 i').css({
@@ -53,6 +84,9 @@ function currentReading(page, currentPage){
         'background-size':'100%'
     })
     addEle.parents('.books-catalog').find('ul').slideDown('slow');
+    if( addEle.parents('.pic_list').is(':hidden') ){
+    	addEle.parents('.pic_list').slideDown('slow');
+    }
 
     $('#pageNumber').val(page);
 }
@@ -100,7 +134,6 @@ function resizeViewport() {
 		if (bound.width % 2 !== 0) {
 			bound.width -= 1;
 		}
-
 
 		if (bound.width !== $('.magazine').width() || bound.height !== $('.magazine').height()) {
 
@@ -189,72 +222,6 @@ function loadRegions(page, element) {
 }
 
 /**
- * 缩略图数据
- * @type {Array}
- */
-// var thumbnailsData = [{
-// 	page: 1,
-// 	thumb: "images/open/1-thumb.jpg",
-// 	small: "images/open/1.jpg",
-// 	large: "images/open/1-large.jpg"
-// },{
-// 	page: 2,
-// 	thumb: "images/open/2-thumb.jpg",
-// 	small: "images/open/2.jpg",
-// 	large: "images/open/2-large.jpg"
-// },{
-// 	page: 3,
-// 	thumb: "images/open/3-thumb.jpg",
-// 	small: "images/open/3.jpg",
-// 	large: "images/open/3-large.jpg"
-// },{
-// 	page: 4,
-// 	thumb: "images/open/4-thumb.jpg",
-// 	small: "images/open/4.jpg",
-// 	large: "images/open/4-large.jpg"
-// },{
-// 	page: 5,
-// 	thumb: "images/open/5-thumb.jpg",
-// 	small: "images/open/5.jpg",
-// 	large: "images/open/5-large.jpg"
-// },{
-// 	page: 6,
-// 	thumb: "images/open/6-thumb.jpg",
-// 	small: "images/open/6.jpg",
-// 	large: "images/open/6-large.jpg"
-// },{
-// 	page: 7,
-// 	thumb: "images/open/7-thumb.jpg",
-// 	small: "images/open/7.jpg",
-// 	large: "images/open/7-large.jpg"
-// },{
-// 	page: 8,
-// 	thumb: "images/open/8-thumb.jpg",
-// 	small: "images/open/8.jpg",
-// 	large: "images/open/8-large.jpg"
-// },{
-// 	page: 9,
-// 	thumb: "images/open/9-thumb.jpg",
-// 	small: "images/open/9.jpg",
-// 	large: "images/open/9-large.jpg"
-// },{
-// 	page: 10,
-// 	thumb: "http://turnjs.com/samples/magazine1/pages/10-thumb.jpg",
-// 	small: "http://turnjs.com/samples/magazine1/pages/10.jpg",
-// 	large: "http://turnjs.com/samples/magazine1/pages/10-large.jpg"
-// },{
-// 	page: 11,
-// 	thumb: "http://turnjs.com/samples/magazine1/pages/11-thumb.jpg",
-// 	small: "http://turnjs.com/samples/magazine1/pages/11.jpg",
-// 	large: "http://turnjs.com/samples/magazine1/pages/11-large.jpg"
-// },{
-// 	page: 12,
-// 	thumb: "http://turnjs.com/samples/magazine1/pages/12-thumb.jpg",
-// 	small: "http://turnjs.com/samples/magazine1/pages/12.jpg",
-// 	large: "http://turnjs.com/samples/magazine1/pages/12-large.jpg"
-// }];
-
-/**
  * 添加页
  */
 function addPage(page, book) {
@@ -294,10 +261,10 @@ function loadPage(page, pageElement) {
 	img.load(function() {
 
 		// Set the size
-		$(this).css({
-			width: '100%',
-			height: '100%'
-		});
+		// $(this).css({
+		// 	width: '100%',
+		// 	height: '100%'
+		// });
 
 		// Add the image to the page after loaded
 
@@ -421,10 +388,10 @@ function loadLargePage(page, pageElement) {
  */
 function loadSmallPage(page, pageElement) {
 	var img = pageElement.find('img');
-	console.log(thumbnailsData[page-1].small);
+	// console.log(thumbnailsData[page-1].small);
 	img.css({
 		width: '100%',
-		height: '100%'
+		height: 'auto'
 	});
 
 	img.unbind('load');
@@ -550,22 +517,58 @@ function exitFullscreen() {
 		document.webkitExitFullscreen();
 	}
 }
+
 /**
  * 单双页阅读
  * @param {[type]} index [description]
  */
 function readingMode( index ){
+	var page = $('.magazine').turn('page');
 	switch (index) {
 		case 1:
 			$('.magazine').turn("display", 'single');
-			$('#singleReadingMode').addClass('toggled');
 			$('#doubleReadingMode').removeClass('toggled');
+			$('.thumbnails').removeClass('double_page').addClass('single_page');
+			$('.thumbnails .cover-pic').removeClass('current');
+			$('#singleReadingMode').addClass('toggled');
+			$('.thumbnails .page-' + page).parent().addClass('current');
 			break;
 		case 2:
 			$('.magazine').turn("display", 'double');
-			$('#doubleReadingMode').addClass('toggled');
 			$('#singleReadingMode').removeClass('toggled');
+			$('.thumbnails').removeClass('single_page').addClass('double_page');
+			$('#doubleReadingMode').addClass('toggled');
+			$('.thumbnails .pic-list').removeClass('current');
+			$('.thumbnails .page-' + page).parents('.cover-pic').addClass('current');
 			break;
+	}
+}
+
+/**
+ * 打印pdf文件
+ */
+function printPageFun( _this ){
+	var printUrl = _this.attr("href");
+	var iframe = '<iframe id="printPage" name="printPage" src="'+ printUrl +'"style="\
+				 	position: absolute;\
+				 	top: 0px;\
+				 	left: 0px;\
+				 	width: 0;\
+				 	height: 0;\
+				 	overflow: hidden;\
+				 	display: none\
+				 	"></iframe>';
+	$("body").append(iframe);
+
+	console.log(browser());
+	if( browser() == 'Chrome' || browser() == 'Safari' ){
+		$('#printPage').bind("load",function(){
+			frames["printPage"].focus();
+			frames["printPage"].print();
+		})
+	}else{ //FF、IE
+		window.open(printUrl).print();
+		// window.open(printUrl);
 	}
 }
 
@@ -762,17 +765,10 @@ $('#doubleReadingMode').click(function(){
 	readingMode(2)
 })
 
-//打印
 $('#print').click(function(){
-	alert("功能还未开发!");
-	// if( $(this).hasClass('toggled') ){
-	// 	$(this).removeClass('toggled');
-	// }else{
-	// 	$(this).addClass('toggled');
-	// }
-	
+	// alert("功能还未开发!");
+	printPageFun( $(this) );
 })
-
 
 // Zoom icon
 $('.zoom-icon').bind('mouseover', function() {

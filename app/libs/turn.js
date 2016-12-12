@@ -823,15 +823,14 @@ turnMethods = {
 
           if (!data.pageObjs[0]) {
             this.turn('stop').
-              css({'overflow': 'hidden'});
+              css({'overflow': ''});
 
             data.pageObjs[0] = $('<div />',
                 {'class': 'page p-temporal'}).
               css({width: this.width(), height: this.height()}).
               appendTo(this);
           }
-
-          this.addClass('shadow');
+          this.addClass('shadow originalImg');
 
         break;
         case 'double':
@@ -843,8 +842,7 @@ turnMethods = {
             data.pageObjs[0].remove();
             delete data.pageObjs[0];
           }
-
-          this.removeClass('shadow');
+          this.removeClass('shadow originalImg');
 
         break;
       }
@@ -2223,7 +2221,7 @@ flipMethods = {
             data.fparent = fparent;
         }
 
-        this.css({position: 'absolute', top: 0, left: 0, bottom: 'auto', right: 'auto'});
+        this.css({position: 'absolute', top: 0, left: 0, bottom: '0', right: 'auto'});
 
         data.wrapper = $('<div/>', divAtt(0, 0, this.css('z-index'))).
           appendTo(parent).

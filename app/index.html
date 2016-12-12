@@ -52,7 +52,7 @@
             </button>
             <button id="doubleReadingMode" class="toolbarButton toggled" title="切换双页阅读">
             </button>
-            <button id="print" class="toolbarButton" title="打印">
+            <button id="print" class="toolbarButton" title="打印" href="pdf/北航《计算机组成原理》.pdf">
             </button>
             <div class="toolbarButtonSpacer toolbarButton"></div>
             <button class="toolbarButton pageDown" title="下一页" id="next">
@@ -73,57 +73,95 @@
             </div>
         </div>
         <!-- Thumbnails -->
-        <div class="thumbnails">
+        <div class="thumbnails double_page">
             <div id="thumbnails">
                 <!-- <div class="books-catalog">
                     <div class="cover-pic">
-                        <img src="images/open/1-thumb.jpg" width="54" height="70" class="page-1" />
+                        <div class="pic-list">
+                            <img src="images/open/1-thumb.jpg" width="54" height="70" class="page-1" />
+                            <em>1</em>
+                        </div>
                         <span>1</span>
                     </div>
                 </div>
                 <div class="books-catalog">
                     <div class="cover-pic">
-                        <img src="images/open/2-thumb.jpg" width="54" height="70" class="page-2" />
-                        <img src="images/open/3-thumb.jpg" width="54" height="70" class="page-3" />
+                        <div class="pic-list">
+                            <img src="images/open/2-thumb.jpg" width="54" height="70" class="page-2" />
+                            <em>2</em>
+                        </div>
+                        <div class="pic-list">
+                            <img src="images/open/3-thumb.jpg" width="54" height="70" class="page-3" />
+                            <em>3</em>
+                        </div>
+                        <i>-</i>
                         <span>2 - 3</span>
-                    </div>
-                </div>
-                <div class="books-catalog">
-                    <div class="cover-pic">
-                        <img src="images/open/4-thumb.jpg" width="54" height="70" class="page-4" />
-                        <img src="images/open/5-thumb.jpg" width="54" height="70" class="page-5" />
-                        <span>4 - 5</span>
-                    </div>
-                </div>
-                <div class="books-catalog">
-                    <div class="cover-pic">
-                        <img src="images/open/6-thumb.jpg" width="54" height="70" class="page-6" />
-                        <img src="images/open/7-thumb.jpg" width="54" height="70" class="page-7" />
-                        <span>6 - 7</span>
-                    </div>
-                </div>
-                <div class="books-catalog">
-                    <div class="cover-pic">
-                        <img src="images/open/8-thumb.jpg" width="54" height="70" class="page-8" />
-                        <img src="images/open/9-thumb.jpg" width="54" height="70" class="page-9" />
-                        <span>8 - 9</span>
-                    </div>
-                </div>
-                <div class="books-catalog">
-                    <div class="cover-pic">
-                        <img src="images/10-thumb.jpg" width="54" height="70" class="page-10" />
-                        <img src="images/11-thumb.jpg" width="54" height="70" class="page-11" />
-                        <span>10 - 11</span>
-                    </div>
-                </div>
-                <div class="books-catalog">
-                    <div class="cover-pic">
-                        <img src="images/12-thumb.jpg" width="54" height="70" class="page-12" />
-                        <span>12</span>
                     </div>
                 </div> -->
             </div>
             <div id="outlines">
+                <!-- <div class="books-catalog">
+                    <h2>
+                        <span class="icon"></span>
+                        第一章
+                        <i class="arrow"></i>
+                    </h2>
+                    <ul>
+                        <li>
+                            <h3></h3>
+                            <div>
+                                <div class="cover-pic">
+                                    <div class="pic-list">
+                                        <img src="images/open/1-thumb.jpg" width="54" height="70" class="page-1" />
+                                        <em>1</em>
+                                    </div>
+                                    <span>1</span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="books-catalog">
+                    <h2>
+                        <span class="icon"></span>
+                        第二章
+                        <i class="arrow"></i>
+                    </h2>
+                    <ul>
+                        <li>
+                            <h3>第一节</h3>
+                            <div>
+                                <div class="cover-pic">
+                                    <div class="pic-list">
+                                        <img src="images/open/2-thumb.jpg" width="54" height="70" class="page-2" />
+                                        <em>2</em>
+                                    </div>
+                                    <div class="pic-list">
+                                        <img src="images/open/3-thumb.jpg" width="54" height="70" class="page-3" />
+                                        <em>3</em>
+                                    </div>
+                                    <span>2 - 3</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <h3>第二节</h3>
+                            <div>
+                                <div class="cover-pic">
+                                    <div class="pic-list">
+                                        <img src="images/open/4-thumb.jpg" width="54" height="70" class="page-4" />
+                                        <em>4</em>
+                                    </div>
+                                    <div class="pic-list">
+                                        <img src="images/open/5-thumb.jpg" width="54" height="70" class="page-5" />
+                                        <em>5</em>
+                                    </div>
+                                    <span>4 - 5</span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div> -->
                 <!-- <div class="books-catalog">
                     <h2>
                         <span class="icon"></span>
@@ -255,17 +293,17 @@
                 {{title}}
                 <i class="arrow"></i>
             </h2>
-            {{#each secondLevelList}}
             <ul>
+                {{#each secondLevelList}}
                 <li>
                     <h3>{{smallTitle}}</h3>
-                    <div>
+                    <div class="pic_list">
                         {{#list content}}
                         {{/list}}
                     </div>
                 </li>
+                {{/each}}
             </ul>
-            {{/each}}
         </div>
         {{/each}}
     </script>
@@ -276,6 +314,9 @@
          *  加载
          */
         function loadApp() {
+
+            ifPrint(2);//是否打印pdf文件
+
             $('#canvas').fadeIn(1000);
 
             var flipbook = $('.magazine');
@@ -519,11 +560,18 @@
                 }
             });
 
-            $('.thumbnails .cover-pic').
+            $('.thumbnails .pic-list').
             bind($.mouseEvents.over, function() {
-                $(this).addClass('thumb-hover');
+                if( $(this).parents('.thumbnails').hasClass('single_page') ){
+                    $(this).addClass('thumb-hover');
+                }else{
+                    $(this).parent().addClass('thumb-hover');
+                }
+                
             }).bind($.mouseEvents.out, function() {
                 $(this).removeClass('thumb-hover');
+                $(this).parent().removeClass('thumb-hover');
+
             });
 
             if ($.isTouch) {
@@ -585,7 +633,7 @@
 
         yepnope({
             test : Modernizr.csstransforms,
-            yep: ['/libs/turn.min.js'],
+            yep: ['/libs/turn.js'],
             nope: ['/libs/turn.html4.min.js'],
             both: ['/libs/zoom.min.js', 'scripts/dataInteractive.js', 'scripts/main.js', 'styles/main.css'],
             complete: loadApp

@@ -13,8 +13,7 @@ function isChrome() {
  */
 function browser(){
 	var userAgent = navigator.userAgent;
-	var isOpera = userAgent.indexOf("Opera") > -1;
-	if(isOpera){
+	if(userAgent.indexOf("Opera") > -1){
         return "Opera"
     }; //判断是否Opera浏览器
     if(userAgent.indexOf("Firefox") > -1){
@@ -26,9 +25,40 @@ function browser(){
     if(userAgent.indexOf("Safari") > -1){
         return "Safari";
     } //判断是否Safari浏览器
-    if(userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1 && !isOpera){
+    if(userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1 && ! userAgent.indexOf("Opera") > -1){
         return "IE";
     }; //判断是否IE浏览器
+}
+
+/**
+ * 浏览器是否打印pdf文件
+ * 0 -- 都支持打印
+ * 1 -- 都不支持打印
+ * 2 -- 只支持Chrome打印
+ */
+function ifPrint(n){
+	// console.log(browser()+'==='+n);
+	$('#print').bind('click', function(){
+		printPageFun( $(this) );
+	})
+	switch (n) {
+		case 0:
+			$('#print').show();
+		break;
+		case 1:
+			$('#print').hide();
+		break;
+		case 2:
+			if( browser() == 'Chrome' || browser() == 'Safari' ){
+				
+			}else{
+				$('#print')
+				.addClass('conceal')
+				.attr('title','此功能只在Chrome下使用!')
+				.unbind('click');
+			}
+		break;
+	}
 }
 
 /**
@@ -560,14 +590,13 @@ function printPageFun( _this ){
 				 	"></iframe>';
 	$("body").append(iframe);
 
-	console.log(browser());
 	if( browser() == 'Chrome' || browser() == 'Safari' ){
 		$('#printPage').bind("load",function(){
 			frames["printPage"].focus();
 			frames["printPage"].print();
 		})
 	}else{ //FF、IE
-		window.open(printUrl).print();
+		// window.open(printUrl).print();
 		// window.open(printUrl);
 	}
 }
@@ -765,10 +794,7 @@ $('#doubleReadingMode').click(function(){
 	readingMode(2)
 })
 
-$('#print').click(function(){
-	// alert("功能还未开发!");
-	printPageFun( $(this) );
-})
+
 
 // Zoom icon
 $('.zoom-icon').bind('mouseover', function() {

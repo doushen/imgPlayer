@@ -120,6 +120,12 @@ input[type="number"]{
     .toolbarButton#print{
         background-image: url(../images/icon-print.png);
     }
+    .toolbarButton#print.conceal{
+        opacity: 0.6;
+        -webkit-opacity: 0.6;
+        -moz-opacity: 0.6;
+        filter: alpha(opacity=60);
+    }
     .toolbarButtonSpacer {
         width: 30px;
         display: inline-block;

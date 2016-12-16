@@ -106,8 +106,8 @@ var booksOutline = {
  * 创建新的图片展示数据结构
  * @type {Array}
  */
-var thumbnailsData = new Array();
 function exhibitionData(){
+	var thumbnailsData = new Array();
 	for( var i = 0; i < booksOutline.catalog.length; i++ ){
 		for( var j = 0; j < booksOutline.catalog[i].secondLevelList.length; j++ ){
 			for( var k = 0; k < booksOutline.catalog[i].secondLevelList[j].content.length; k++ ){
@@ -115,8 +115,10 @@ function exhibitionData(){
 			}
 		}
 	}
+	return thumbnailsData;
 }
-exhibitionData();
+
+// console.log(exhibitionData().length);
 
 //缩略图片展示模板
 Handlebars.registerHelper("list", function (str) {
@@ -154,8 +156,5 @@ Handlebars.registerHelper("list", function (str) {
 /**
  * 大纲列表
 **/
-var simplifiedTemplate  = Handlebars.compile($("#simplified").html());
-$("#thumbnails").html(simplifiedTemplate(booksOutline)); //缩略图
-
-var detailedTemplate = Handlebars.compile($("#detailed").html());
-$("#outlines").html(detailedTemplate(booksOutline)); //详情大纲
+var outlineListTemplate  = Handlebars.compile($("#outlineList").html());
+$(".thumbnails").html(outlineListTemplate(booksOutline));

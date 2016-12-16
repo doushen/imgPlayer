@@ -18,9 +18,9 @@
     
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
-
-    <script src="/libs/handlebars.min.js"></script>
+    
     <script src="/libs/jquery.min.1.7.js"></script>
+    <script src="/libs/handlebars.min.js"></script>
     <script src="/libs/modernizr.2.5.3.min.js"></script>
     <script src="/libs/hash.js"></script>
     <!-- endbower -->
@@ -37,6 +37,7 @@
       <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
     <div id="canvas">
+        <!-- <a href="phoneDemo.html" style="position: fixed; top: 10px; left: 10px; z-index: 99999; display: block; padding: 10px 20px; color: #fff; background-color: #f00; text-decoration: none;">手机端</a> -->
         <div id="toolbars" class="toolbars">
             <div class="toolbarButtonSiderContainer">
                 <button id="viewOutline" class="toolbarButton group" title="显示文档大纲" tabindex="4">
@@ -62,7 +63,7 @@
             <input type="number" disabled id="pageNumber" class="toolbarField pageNumber toolbarButton" value="1" size="4" min="1" tabindex="1" max="9999999">
             <label id="pageNumberLabel" class="toolbarLabel toolbarButton" for="pageNumber">页面：</label>
         </div>
-        <div class="magazine-viewport">
+        <div class="magazine-viewport viewport-pc">
             <div class="container">
                 <div class="magazine">
                     <!-- Next button -->
@@ -74,16 +75,7 @@
         </div>
         <!-- Thumbnails -->
         <div class="thumbnails double_page">
-            <div id="thumbnails">
-                <!-- <div class="books-catalog">
-                    <div class="cover-pic">
-                        <div class="pic-list">
-                            <img src="images/open/1-thumb.jpg" width="54" height="70" class="page-1" />
-                            <em>1</em>
-                        </div>
-                        <span>1</span>
-                    </div>
-                </div>
+            <!-- <div id="thumbnails">
                 <div class="books-catalog">
                     <div class="cover-pic">
                         <div class="pic-list">
@@ -97,10 +89,10 @@
                         <i>-</i>
                         <span>2 - 3</span>
                     </div>
-                </div> -->
-            </div>
-            <div id="outlines">
-                <!-- <div class="books-catalog">
+                </div>
+            </div> -->
+            <!-- <div id="outlines">
+                <div class="books-catalog">
                     <h2>
                         <span class="icon"></span>
                         第一章
@@ -121,159 +113,15 @@
                         </li>
                     </ul>
                 </div>
-                <div class="books-catalog">
-                    <h2>
-                        <span class="icon"></span>
-                        第二章
-                        <i class="arrow"></i>
-                    </h2>
-                    <ul>
-                        <li>
-                            <h3>第一节</h3>
-                            <div>
-                                <div class="cover-pic">
-                                    <div class="pic-list">
-                                        <img src="images/open/2-thumb.jpg" width="54" height="70" class="page-2" />
-                                        <em>2</em>
-                                    </div>
-                                    <div class="pic-list">
-                                        <img src="images/open/3-thumb.jpg" width="54" height="70" class="page-3" />
-                                        <em>3</em>
-                                    </div>
-                                    <span>2 - 3</span>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <h3>第二节</h3>
-                            <div>
-                                <div class="cover-pic">
-                                    <div class="pic-list">
-                                        <img src="images/open/4-thumb.jpg" width="54" height="70" class="page-4" />
-                                        <em>4</em>
-                                    </div>
-                                    <div class="pic-list">
-                                        <img src="images/open/5-thumb.jpg" width="54" height="70" class="page-5" />
-                                        <em>5</em>
-                                    </div>
-                                    <span>4 - 5</span>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div> -->
-                <!-- <div class="books-catalog">
-                    <h2>
-                        <span class="icon"></span>
-                        拉斯维加斯
-                        <i class="arrow"></i>
-                    </h2>
-                    <ul>
-                        <li>
-                            <div>
-                                <div class="cover-pic">
-                                    <img src="images/open/1-thumb.jpg" width="54" height="70" class="page-1" />
-                                    <span>1</span>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div> -->
-                <!-- <div class="books-catalog">
-                    <h2>
-                        <span class="icon"></span>
-                        第一章
-                        <i class="arrow"></i>
-                    </h2>
-                    <ul>
-                        <li>
-                            <div>
-                                <div class="cover-pic">
-                                    <img src="images/open/2-thumb.jpg" width="54" height="70" class="page-2" />
-                                    <img src="images/open/3-thumb.jpg" width="54" height="70" class="page-3" />
-                                    <span>2 - 3</span>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="books-catalog">
-                    <h2>
-                        <span class="icon"></span>
-                        第二章
-                        <span class="arrow"></span>
-                    </h2>
-                    <ul>
-                        <li>
-                            <h3>第一节</h3>
-                            <div>
-                                <div class="cover-pic">
-                                    <img src="images/open/4-thumb.jpg" width="54" height="70" class="page-4" />
-                                    <img src="images/open/5-thumb.jpg" width="54" height="70" class="page-5" />
-                                    <span>4 - 5</span>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <h3>第二节</h3>
-                            <div>
-                                <div class="cover-pic">
-                                    <img src="images/open/6-thumb.jpg" width="54" height="70" class="page-6" />
-                                    <img src="images/open/7-thumb.jpg" width="54" height="70" class="page-7" />
-                                    <span>6 - 7</span>
-                                </div>
-                                <div class="cover-pic">
-                                    <img src="images/open/8-thumb.jpg" width="54" height="70" class="page-8" />
-                                    <img src="images/open/9-thumb.jpg" width="54" height="70" class="page-9" />
-                                    <span>8 - 9</span>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="books-catalog">
-                    <h2>
-                        <span class="icon"></span>
-                        第三章
-                        <i class="arrow"></i>
-                    </h2>
-                    <ul>
-                        <li>
-                            <div>
-                                <div class="cover-pic">
-                                    <img src="images/10-thumb.jpg" width="54" height="70" class="page-10" />
-                                    <img src="images/11-thumb.jpg" width="54" height="70" class="page-11" />
-                                    <span>10 - 11</span>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="books-catalog">
-                    <h2>
-                        <span class="icon"></span>
-                        结束
-                        <i class="arrow"></i>
-                    </h2>
-                    <ul>
-                        <li>
-                            <div>
-                                <div class="cover-pic">
-                                    <img src="images/12-thumb.jpg" width="54" height="70" class="page-12" />
-                                    <span>12</span>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div> -->
-            </div>
+            </div> -->
         </div>
     </div>
-
-    <!-- 模块化数据绑定 -->
+    
+</body>
+<!-- 模块化数据绑定 -->
+<script id="outlineList" type="text/x-handlebars-template">
     <!-- 简化目录 -->
-    <script id="simplified" type="text/x-handlebars-template">
+    <div id="thumbnails">
         {{#each this.catalog}}
             {{#each secondLevelList}}
             <div class="books-catalog">
@@ -282,10 +130,9 @@
             </div>
             {{/each}}
         {{/each}}
-    </script>
-    
+    </div>
     <!-- 详细目录 -->
-    <script id="detailed" type="text/x-handlebars-template">
+    <div id="outlines">
         {{#each this.catalog}}
         <div class="books-catalog">
             <h2>
@@ -306,339 +153,292 @@
             </ul>
         </div>
         {{/each}}
-    </script>
+    </div>
+</script>
 
-    <!-- 阅读书 -->
-    <script type="text/javascript">
-        /**
-         *  加载
-         */
-        function loadApp() {
+<!-- 阅读书 -->
+<script type="text/javascript">
+    /**
+     *  加载
+     */
+    function loadApp() {
 
-            ifPrint(2);//是否打印pdf文件
+        ifPrint(2);//是否打印pdf文件
 
-            $('#canvas').fadeIn(1000);
+        $('#canvas').fadeIn(1000);
 
-            var flipbook = $('.magazine');
+        var flipbook = $('.magazine');
 
-            // Check if the CSS was already loaded
-
-            if (flipbook.width() === 0 || flipbook.height() === 0) {
-                setTimeout(loadApp, 10);
-                return;
-            }
-
-            // Create the flipbook
-            flipbook.turn({
-
-                // Magazine width
-
-                width: 1000,
-
-                // display: 'single',
-
-                // direction: 'rtl',
-
-                // Magazine height
-
-                height: 650,
-
-                // Duration in millisecond
-
-                duration: 1000,
-
-                // Hardware acceleration
-
-                acceleration: !isChrome(),
-
-                // Enables gradients
-
-                gradients: true,
-
-                // Auto center this flipbook
-
-                autoCenter: true,
-
-                // Elevation from the edge of the flipbook when turning a page
-
-                elevation: 50,
-
-                // The number of pages
-
-                pages: thumbnailsData.length,
-
-                // Events
-
-                when: {
-                    turning: function(event, page) {
-
-                        var book = $(this),
-                            currentPage = book.turn('page');
-
-                        // Show and hide navigation buttons
-
-                        disableControls(page);
-
-                        currentReading(page, currentPage);
-                        // Update the current URI
-
-                        Hash.go('page/' + page).update();
-
-                    },
-
-                    turned: function(event, page) {
-
-                        disableControls(page);
-
-                        $(this).turn('center');
-
-                        if (page === 1) {
-                            $(this).turn('peel', 'br');
-                        }
-
-                    },
-
-                    missing: function(event, pages) {
-                        // Add pages that aren't in the magazine
-                        for (var i = 0; i < pages.length; i++) {
-                            addPage(pages[i], $(this));
-                        }
-
-                    }
-                }
-
-            });
-
-            // Zoom.js
-
-            $('.magazine-viewport').zoom({
-                flipbook: $('.magazine'),
-
-                max: function() {
-
-                    return largeMagazineWidth() / $('.magazine').width();
-
-                },
-
-                when: {
-
-                    swipeLeft: function() {
-
-                        $(this).zoom('flipbook').turn('next');
-
-                    },
-
-                    swipeRight: function() {
-
-                        $(this).zoom('flipbook').turn('previous');
-
-                    },
-
-                    resize: function(event, scale, page, pageElement) {
-
-                        if (scale === 1) {
-                            loadSmallPage(page, pageElement);
-                        } else {
-                            loadLargePage(page, pageElement);
-                        }
-
-                    },
-
-                    zoomIn: function() {
-
-                        //$('.thumbnails').hide();
-                        $('.made').hide();
-                        $('.magazine').removeClass('animated').addClass('zoom-in');
-                        $('.zoom-icon').removeClass('zoom-icon-in').addClass('zoom-icon-out');
-
-                        // if (!window.escTip && !$.isTouch) {
-                        //  escTip = true;
-
-                        //  $('<div />', {'class': 'exit-message'}).
-                        //      html('<div>Press ESC to exit</div>').
-                        //          appendTo($('body')).
-                        //          delay(2000).
-                        //          animate({opacity:0}, 500, function() {
-                        //              $(this).remove();
-                        //          });
-                        // }
-                    },
-
-                    zoomOut: function() {
-
-                        $('.exit-message').hide();
-                        //$('.thumbnails').fadeIn();
-                        $('.made').fadeIn();
-                        $('.zoom-icon').removeClass('zoom-icon-out').addClass('zoom-icon-in');
-
-                        setTimeout(function() {
-                            $('.magazine').addClass('animated').removeClass('zoom-in');
-                            resizeViewport();
-                        }, 0);
-
-                    }
-                }
-            });
-
-            // Zoom event
-
-            if ($.isTouch) {
-                $('.magazine-viewport').bind('zoom.doubleTap', zoomTo);
-            } else {
-                $('.magazine-viewport').bind('zoom.tap', zoomTo);
-            }
-
-
-            // Using arrow keys to turn the page
-
-            $(document).keydown(function(e) {
-
-                var previous = 37,
-                    next = 39,
-                    esc = 27;
-
-                switch (e.keyCode) {
-                    case previous:
-
-                        // left arrow
-                        $('.magazine').turn('previous');
-                        e.preventDefault();
-
-                        break;
-                    case next:
-
-                        //right arrow
-                        $('.magazine').turn('next');
-                        e.preventDefault();
-
-                        break;
-                    case esc:
-
-                        $('.magazine-viewport').zoom('zoomOut');
-                        e.preventDefault();
-
-                        break;
-                }
-            });
-
-
-            Hash.on('^page\/([0-9]*)$', {
-                yep: function(path, parts) {
-                    var page = parts[1];
-
-                    if (page !== undefined) {
-                        if ($('.magazine').turn('is')) {
-                            $('.magazine').turn('page', page);
-                        }
-                    }
-
-                },
-                nop: function() {
-
-                    if ($('.magazine').turn('is')) {
-                        $('.magazine').turn('page', 1);
-                    }
-                }
-            });
-
-
-            $(window).resize(function() {
-                resizeViewport();
-            }).bind('orientationchange', function() {
-                resizeViewport();
-            });
-
-            // Events for thumbnails
-
-            $('.thumbnails').click(function(event) {
-
-                var page;
-
-                if (event.target && (page = /page-([0-9]+)/.exec($(event.target).attr('class')))) {
-
-                    $('.magazine').turn('page', page[1]);
-                }
-            });
-
-            $('.thumbnails .pic-list').
-            bind($.mouseEvents.over, function() {
-                if( $(this).parents('.thumbnails').hasClass('single_page') ){
-                    $(this).addClass('thumb-hover');
-                }else{
-                    $(this).parent().addClass('thumb-hover');
-                }
-                
-            }).bind($.mouseEvents.out, function() {
-                $(this).removeClass('thumb-hover');
-                $(this).parent().removeClass('thumb-hover');
-
-            });
-
-            if ($.isTouch) {
-                $('.thumbnails').
-                addClass('thumbanils-touch').
-                bind($.mouseEvents.move, function(event) {
-                    event.preventDefault();
-                });
-            } else {
-                $('.thumbnails ul').mouseover(function() {
-                    $('.thumbnails').addClass('thumbnails-hover');
-                }).mousedown(function() {
-                    return false;
-                }).mouseout(function() {
-                    $('.thumbnails').removeClass('thumbnails-hover');
-                });
-            }
-
-            // Regions
-
-            if ($.isTouch) {
-                $('.magazine').bind('touchstart', regionClick);
-            } else {
-                $('.magazine').click(regionClick);
-            }
-
-            // Events for the next button
-
-            $('.next-button').bind($.mouseEvents.over, function() {
-                $(this).addClass('next-button-hover');
-            }).bind($.mouseEvents.out, function() {
-                $(this).removeClass('next-button-hover');
-            }).bind($.mouseEvents.down, function() {
-                $(this).addClass('next-button-down');
-            }).bind($.mouseEvents.up, function() {
-                $(this).removeClass('next-button-down');
-            }).click(function() {
-                $('.magazine').turn('next');
-            });
-
-            // Events for the next button
-
-            $('.previous-button').bind($.mouseEvents.over, function() {
-                $(this).addClass('previous-button-hover');
-            }).bind($.mouseEvents.out, function() {
-                $(this).removeClass('previous-button-hover');
-            }).bind($.mouseEvents.down, function() {
-                $(this).addClass('previous-button-down');
-            }).bind($.mouseEvents.up, function() {
-                $(this).removeClass('previous-button-down');
-            }).click(function() {
-                $('.magazine').turn('previous');
-            });
-
-            resizeViewport();
-
-            $('.magazine').addClass('animated');
+        // Check if the CSS was already loaded
+        if (flipbook.width() === 0 || flipbook.height() === 0) {
+            setTimeout(loadApp, 10);
+            return;
         }
 
-        yepnope({
-            test : Modernizr.csstransforms,
-            yep: ['/libs/turn.js'],
-            nope: ['/libs/turn.html4.min.js'],
-            both: ['/libs/zoom.min.js', 'scripts/dataInteractive.js', 'scripts/main.js', 'styles/main.css'],
-            complete: loadApp
-        });
-    </script>
-</body>
+        // Create the flipbook
+        flipbook.turn({
+            width: 1000,
+            // display: 'single',
+            // direction: 'rtl',
+            height: 650,
+            // Duration in millisecond
+            duration: 1000,
+            // Hardware acceleration
+            acceleration: !isChrome(),
+            // Enables gradients
+            gradients: true,
+            // Auto center this flipbook
+            autoCenter: true,
+            // Elevation from the edge of the flipbook when turning a page
+            elevation: 50,
+            // The number of pages
+            pages: exhibitionData().length,
+            when: {
+                turning: function(event, page) {
 
+                    // Show and hide navigation buttons
+                    disableControls(page);
+
+                    currentReading(page, $(this).turn('page'));
+
+                    // Update the current URI
+                    Hash.go('page/' + page).update();
+                },
+
+                turned: function(event, page) {
+
+                    disableControls(page);
+
+                    currentReading(page, $(this).turn('page'));
+
+                    $(this).turn('center');
+
+                    if (page === 1) {
+                        $(this).turn('peel', 'br');
+                    }
+
+                },
+
+                missing: function(event, pages) {
+                    // Add pages that aren't in the magazine
+                    for (var i = 0; i < pages.length; i++) {
+                        addPage(pages[i], $(this));
+                    }
+                }
+            }
+        });
+
+        // Zoom.js
+
+        $('.magazine-viewport').zoom({
+            flipbook: $('.magazine'),
+
+            max: function() {
+
+                return largeMagazineWidth() / $('.magazine').width();
+
+            },
+
+            when: {
+
+                swipeLeft: function() {
+
+                    $(this).zoom('flipbook').turn('next');
+
+                },
+
+                swipeRight: function() {
+
+                    $(this).zoom('flipbook').turn('previous');
+
+                },
+
+                resize: function(event, scale, page, pageElement) {
+
+                    if (scale === 1) {
+                        loadSmallPage(page, pageElement);
+                    } else {
+                        loadLargePage(page, pageElement);
+                    }
+
+                },
+
+                zoomIn: function() {
+
+                    //$('.thumbnails').hide();
+                    $('.made').hide();
+                    $('.magazine').removeClass('animated').addClass('zoom-in');
+                    $('.zoom-icon').removeClass('zoom-icon-in').addClass('zoom-icon-out');
+
+                },
+
+                zoomOut: function() {
+
+                    $('.exit-message').hide();
+                    //$('.thumbnails').fadeIn();
+                    $('.made').fadeIn();
+                    $('.zoom-icon').removeClass('zoom-icon-out').addClass('zoom-icon-in');
+
+                    setTimeout(function() {
+                        $('.magazine').addClass('animated').removeClass('zoom-in');
+                        resizeViewport();
+                    }, 0);
+
+                }
+            }
+        });
+
+        // Zoom event
+        if ($.isTouch) {
+            $('.magazine-viewport').bind('zoom.doubleTap', zoomTo);
+        } else {
+            $('.magazine-viewport').bind('zoom.tap', zoomTo);
+        }
+
+
+        // Using arrow keys to turn the page
+        $(document).keydown(function(e) {
+            
+            var previous = 37,
+                next = 39,
+                esc = 27;
+
+            switch (e.keyCode) {
+                case previous:
+
+                    // left arrow
+                    $('.magazine').turn('previous');
+                    e.preventDefault();
+
+                    break;
+                case next:
+
+                    //right arrow
+                    $('.magazine').turn('next');
+                    e.preventDefault();
+
+                    break;
+                case esc:
+
+                    $('.magazine-viewport').zoom('zoomOut');
+                    e.preventDefault();
+
+                    break;
+            }
+        });
+
+        Hash.on('^page\/([0-9]*)$', {
+            yep: function(path, parts) {
+                var page = parts[1];
+
+                if (page !== undefined) {
+                    if ($('.magazine').turn('is')) {
+                        $('.magazine').turn('page', page);
+                    }
+                }
+
+            },
+            nop: function() {
+
+                if ($('.magazine').turn('is')) {
+                    $('.magazine').turn('page', 1);
+                }
+            }
+        });
+
+
+        $(window).resize(function() {
+            resizeViewport();
+        }).bind('orientationchange', function() {
+            resizeViewport();
+        });
+
+        // Events for thumbnails
+
+        $('.thumbnails').click(function(event) {
+
+            var page;
+
+            if (event.target && (page = /page-([0-9]+)/.exec($(event.target).attr('class')))) {
+
+                $('.magazine').turn('page', page[1]);
+            }
+        });
+
+        $('.thumbnails .pic-list').
+        bind($.mouseEvents.over, function() {
+            if( $(this).parents('.thumbnails').hasClass('single_page') ){
+                $(this).addClass('thumb-hover');
+            }else{
+                $(this).parent().addClass('thumb-hover');
+            }
+            
+        }).bind($.mouseEvents.out, function() {
+            $(this).removeClass('thumb-hover');
+            $(this).parent().removeClass('thumb-hover');
+
+        });
+
+        if ($.isTouch) {
+            $('.thumbnails').
+            addClass('thumbanils-touch').
+            bind($.mouseEvents.move, function(event) {
+                event.preventDefault();
+            });
+        } else {
+            $('.thumbnails ul').mouseover(function() {
+                $('.thumbnails').addClass('thumbnails-hover');
+            }).mousedown(function() {
+                return false;
+            }).mouseout(function() {
+                $('.thumbnails').removeClass('thumbnails-hover');
+            });
+        }
+
+        // Regions
+        if ($.isTouch) {
+            $('.magazine').bind('touchstart', regionClick);
+        } else {
+            $('.magazine').click(regionClick);
+        }
+
+        // Events for the next button
+        $('.next-button').bind($.mouseEvents.over, function() {
+            $(this).addClass('next-button-hover');
+        }).bind($.mouseEvents.out, function() {
+            $(this).removeClass('next-button-hover');
+        }).bind($.mouseEvents.down, function() {
+            $(this).addClass('next-button-down');
+        }).bind($.mouseEvents.up, function() {
+            $(this).removeClass('next-button-down');
+        }).click(function() {
+            $('.magazine').turn('next');
+        });
+
+        // Events for the next button
+        $('.previous-button').bind($.mouseEvents.over, function() {
+            $(this).addClass('previous-button-hover');
+        }).bind($.mouseEvents.out, function() {
+            $(this).removeClass('previous-button-hover');
+        }).bind($.mouseEvents.down, function() {
+            $(this).addClass('previous-button-down');
+        }).bind($.mouseEvents.up, function() {
+            $(this).removeClass('previous-button-down');
+        }).click(function() {
+            $('.magazine').turn('previous');
+        });
+
+        resizeViewport();
+
+        $('.magazine').addClass('animated');
+    }
+
+    yepnope({
+        test : Modernizr.csstransforms,
+        yep: ['/libs/turn.js'],
+        nope: ['/libs/turn.html4.min.js'],
+        both: ['/libs/zoom.min.js', 'scripts/dataInteractive.js', 'scripts/main.js', 'styles/main.css'],
+        complete: loadApp
+    });
+</script>
 </html>

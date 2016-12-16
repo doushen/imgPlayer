@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>电子教材播放器</title>
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <!-- Place favicon.ico in the root directory -->
+    <!-- build:css styles/vendor.css -->
+    <!-- bower:css -->
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css styles/main.css -->
+    <!-- <link rel="stylesheet" href="styles/main.css"> -->
+    <!-- endbuild -->
+    
+    <!-- build:js scripts/vendor.js -->
+    <!-- bower:js -->
+
+    <script src="/libs/jquery.min.1.7.js"></script>
+    <script src="/libs/handlebars.min.js"></script>
+    <script src="/libs/modernizr.2.5.3.min.js"></script>
+    <script src="/libs/hash.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:js scripts/main.js -->
+    <!-- endbuild -->
+    <!--[if lte IE 8]>
+    <script src="/libs/ieBetter.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div id="canvas" class="main">
+        <div class="magazine-viewport viewport-phone">
+            <button class="sideslip"></button>
+            <div class="pageBtn">
+                <button id="previous" class="previousPage"></button>
+                <button class="return"></button>
+                <button id="next" class="nextPage"></button>
+            </div>
+            <div class="container">
+                <div class="magazine">
+                </div>
+            </div>
+        </div>
+
+        <div class="thumbnails single_page phone-thumbnails">
+           <!--  <div id="thumbnails">
+            </div> -->
+        </div>
+    </div>
+</body>
+
+<!-- 模块化数据绑定 -->
+<script id="outlineList" type="text/x-handlebars-template">
+    <div id="outlines">
+        {{#each this.catalog}}
+        <div class="books-catalog">
+            <h2>
+                <span class="icon"></span>
+                {{title}}
+                <i class="arrow"></i>
+            </h2>
+            <ul>
+                {{#each secondLevelList}}
+                <li>
+                    <h3>{{smallTitle}}</h3>
+                    <div class="pic_list">
+                        {{#list content}}
+                        {{/list}}
+                    </div>
+                </li>
+                {{/each}}
+            </ul>
+        </div>
+        {{/each}}
+    </div>
+</script>
+
+<script type="text/javascript">
+//配置turn.js
+function loadApp(){
+
+    $('#canvas').fadeIn(1000);
+    var flipbook = $('.magazine');
+
+    // Create the flipbook
+    flipbook.turn({
+
+        width: $(window).width(),
+        height: $(window).height(),
+        duration: 1000,
+        display: 'single',
+        gradients: true,
+        autoCenter: true,
+        elevation: 50,
+        pages: exhibitionData().length,
+
+        when: {
+            turning: function(event, page) {
+
+                currentReading(page, $(this).turn('page'));
+
+                // Show and hide navigation buttons
+                if(page === 1 || page === exhibitionData().length){
+                    $('.pageBtn').hide();
+                }else{
+                    $('.pageBtn').show();
+                }
+
+                // Update the current URI
+                Hash.go('page/' + page).update();
+            },
+
+            turned: function(event, page) {
+                
+                currentReading(page, $(this).turn('page'));
+
+                // $(this).turn('center');
+                if(page === 1 || page === exhibitionData().length){
+                    $('.pageBtn').hide();
+                }else{
+                    $('.pageBtn').show();
+                }
+
+                if(page === 1 ) $(this).turn('peel', 'br');
+
+                if(page == exhibitionData().length) $(this).turn('peel', 'bl');
+                
+            },
+
+            missing: function(event, pages) {
+                // Add pages that aren't in the magazine
+                for (var i = 0; i < pages.length; i++) {
+                    addPage(pages[i], $(this));
+                }
+
+            }
+        }
+
+    });
+
+    Hash.on('^page\/([0-9]*)$', {
+        yep: function(path, parts) {
+            var page = parts[1];
+            if (page !== undefined) {
+                if ($('.magazine').turn('is')) {
+                    $('.magazine').turn('page', page);
+                }
+            }
+
+        },
+        nop: function() {
+
+            if ($('.magazine').turn('is')) {
+                $('.magazine').turn('page', 1);
+            }
+        }
+    });
+
+    $('.thumbnails').click(function(event) {
+        var page;
+
+        if (event.target && (page = /page-([0-9]+)/.exec($(event.target).attr('class')))) {
+
+            $('.magazine').turn('page', page[1]);
+        }
+    });
+
+    $('.thumbnails .pic-list').
+    bind($.mouseEvents.over, function() {
+        if( $(this).parents('.thumbnails').hasClass('single_page') ){
+            $(this).addClass('thumb-hover');
+        }else{
+            $(this).parent().addClass('thumb-hover');
+        }
+        
+    }).bind($.mouseEvents.out, function() {
+        $(this).removeClass('thumb-hover');
+        $(this).parent().removeClass('thumb-hover');
+
+    });
+
+}
+
+yepnope({
+    test: Modernizr.csstransforms,
+    yep: ['/libs/turn.js'],
+    nope: ['/libs/turn.html4.min.js'],
+    both: ['styles/main.css', '/libs/zoom.min.js', 'scripts/dataInteractive.js', 'scripts/main.js'],
+    complete: loadApp
+});
+
+
+</script>
+</html>

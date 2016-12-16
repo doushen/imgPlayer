@@ -189,17 +189,7 @@ function resizeViewport() {
 		});
 	}
 
-	var magazineOffset = $('.magazine').offset(); //,
-	//boundH = height - magazineOffset.top - $('.magazine').height(),
-	//marginTop = (boundH - $('.thumbnails > div').height()) / 2;
-
-	// if (marginTop<0) {
-	// 	//$('.thumbnails').css({height:1});
-	// 	// $('.thumbnails').css({height: boundH});
-	// } else {
-	// 	$('.thumbnails').css({height: boundH});
-	// 	$('.thumbnails > div').css({marginTop: marginTop});
-	// }
+	var magazineOffset = $('.magazine').offset();
 
 	if (magazineOffset.top < $('.made').height()) {
 		$('.made').hide();
@@ -306,7 +296,7 @@ function loadPage(page, pageElement) {
 	});
 
 	// Load the page
-	img.attr('src', thumbnailsData[page-1].small);
+	img.attr('src', exhibitionData()[page-1].small);
 
 	//loadRegions(page, pageElement);
 }
@@ -392,7 +382,7 @@ function processRegion(region, regionType) {
 function loadLargePage(page, pageElement) {
 	var img = $('<img />');
 	// console.log
-	// (thumbnailsData[page-1].large);
+	// (exhibitionData()[page-1].large);
 	img.load(function() {
 
 		var prevImg = pageElement.find('img');
@@ -407,7 +397,7 @@ function loadLargePage(page, pageElement) {
 
 	// Loadnew page
 
-	img.attr('src', thumbnailsData[page-1].large);
+	img.attr('src', exhibitionData()[page-1].large);
 }
 
 /**
@@ -418,7 +408,7 @@ function loadLargePage(page, pageElement) {
  */
 function loadSmallPage(page, pageElement) {
 	var img = pageElement.find('img');
-	// console.log(thumbnailsData[page-1].small);
+	// console.log(exhibitionData()[page-1].small);
 	img.css({
 		width: '100%',
 		height: 'auto'
@@ -427,7 +417,7 @@ function loadSmallPage(page, pageElement) {
 	img.unbind('load');
 	// Loadnew page
 
-	img.attr('src', thumbnailsData[page-1].small);
+	img.attr('src', exhibitionData()[page-1].small);
 }
 
 /**
@@ -859,3 +849,68 @@ $('.books-catalog ul h3').click(function(){
     
 })
 
+
+/*************************************** Phone JS **********************************************/
+
+//confirm box
+function confirm (title, option, okCall, cancelCall) {
+    var defaults = {
+        title: null, //what text
+        cancelText: '取消', //the cancel btn text
+        okText: '确定' //the ok btn text
+    };
+
+    if (undefined === option) {
+        option = {};
+    }
+    if ('function' != typeof okCall) {
+        okCall = $.noop;
+    }
+    if ('function' != typeof cancelCall) {
+        cancelCall = $.noop;
+    }
+
+    var o = $.extend(defaults, option, {title: title, okCall: okCall, cancelCall: cancelCall});
+
+    var $dom = $(this);
+
+    var dom = $('<div class="confirm">');
+    var dom1 = $('<div>').appendTo(dom);
+    var dom_content = $('<h3>').html(o.title).appendTo(dom1);
+    var dom_btn = $('<div>').appendTo(dom1);
+    var btn_cancel = $('<a href="#"></a>').html(o.cancelText).appendTo(dom_btn);
+    var btn_ok = $('<a href="#"></a>').html(o.okText).appendTo(dom_btn);
+    btn_cancel.on('click', function (e) {
+        o.cancelCall();
+        dom.remove();
+        e.preventDefault();
+    });
+    btn_ok.on('click', function (e) {
+        o.okCall();
+        dom.remove();
+        e.preventDefault();
+    });
+
+    dom.appendTo($('body'));
+    return $dom;
+};
+
+
+//返回到目录页
+$(".return").bind("touchend", function () {
+    confirm('您确定要返回首页吗?', {}, function () {
+        $(".magazine").turn('page', 1); //跳转页数
+    }, function () {
+    });
+});
+
+//侧滑显示目录
+$('.sideslip').bind("touchend", function () {
+	if( $('.phone-thumbnails').css('left') == '-160px' ){
+		$('.phone-thumbnails').animate({left:"0"},"slow");
+		$('.viewport-phone').animate({left:"160px"},"slow")
+	}else{
+		$('.phone-thumbnails').animate({left:"-160px"},"slow");
+		$('.viewport-phone').animate({left:"0"},"slow")
+	}
+});

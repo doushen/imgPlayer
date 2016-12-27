@@ -96,7 +96,7 @@ function currentReading(page, currentPage){
     removeEle.parents('li').find('h3').removeClass('title-hover');
     removeEle.parents('.books-catalog').removeClass('activate');
     removeEle.parents('.books-catalog').find('h2 i').css({
-        'background-image':'url(../images/arrows-down.png)',
+        'background-image':'url(images/arrows-down.png)',
         'background-size':'100%'
     })
     
@@ -110,7 +110,7 @@ function currentReading(page, currentPage){
     addEle.parents('li').find('h3').addClass('title-hover');
     addEle.parents('.books-catalog').addClass('activate');
     addEle.parents('.books-catalog').find('h2 i').css({
-        'background-image':'url(../images/arrows-up.png)',
+        'background-image':'url(images/arrows-up.png)',
         'background-size':'100%'
     })
     addEle.parents('.books-catalog').find('ul').slideDown('slow');
@@ -822,18 +822,18 @@ $('.books-catalog h2').click(function(){
     if( $(this).siblings('ul').is(':hidden') ){
         $(this).parent().siblings().find('ul').slideUp('slow');
         $(this).parent().siblings().find('.arrow').css({
-            'background-image':'url(../images/arrows-down.png)',
+            'background-image':'url(images/arrows-down.png)',
             'background-size':'100%'
         });
         $(this).siblings('ul').slideDown('slow');
         $(this).find('.arrow').css({
-            'background-image':'url(../images/arrows-up.png)',
+            'background-image':'url(images/arrows-up.png)',
             'background-size':'100%'
         });
     }else{
         $(this).siblings('ul').slideUp('slow');
         $(this).find('.arrow').css({
-            'background-image':'url(../images/arrows-down.png)',
+            'background-image':'url(images/arrows-down.png)',
             'background-size':'100%'
         });
     }

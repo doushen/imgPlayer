@@ -609,31 +609,6 @@ button{
         background-size: 65%;
         outline: none;
     }
-    .pageBtn{
-        position: absolute;
-        bottom: 20px;
-        left: 50%;
-        margin-left: -93px;
-        z-index: 15;
-        button{
-            border: none;
-            background: url(../images/btn.png) no-repeat;
-            background-size: cover;
-            width: 40px;
-            height: 35px;
-            outline: none;
-        }
-        .previousPage{
-
-        }
-        .nextPage{
-            background-position: -78px 0;
-        }
-        .return{
-            background-position: -37px 0;
-            margin: 0 25px;
-        }
-    }
     .page{
        background-color:white;
        -webkit-box-shadow:0 0 20px rgba(0,0,0,0.2);

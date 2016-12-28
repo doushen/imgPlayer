@@ -34,15 +34,11 @@
 
 <body>
     <div id="canvas" class="main">
+
         <div class="magazine-viewport viewport-phone">
             <button class="sideslip"></button>
-            <div class="pageBtn">
-                <button id="previous" class="previousPage"></button>
-                <button class="return"></button>
-                <button id="next" class="nextPage"></button>
-            </div>
             <div class="container">
-                <div class="magazine">
+                <div class="magazine" id="triggerMove">
                 </div>
             </div>
         </div>
@@ -79,7 +75,6 @@
         {{/each}}
     </div>
 </script>
-
 <script type="text/javascript">
 //配置turn.js
 function loadApp(){
@@ -184,11 +179,25 @@ function loadApp(){
 
     });
 
+
+
+    var myElement = document.querySelector("#triggerMove");
+    var hammertime = new Hammer(myElement);
+    hammertime.on('pan', function(ev) {
+        // console.log(ev.isFinal+'==='+ev.deltaX);
+        if( ev.isFinal ){
+            if( ev.deltaX > 0 ){
+                turnPrevious();
+            }else{
+                turnNext();
+            }
+        }
+    });
 }
 
 yepnope({
     test: Modernizr.csstransforms,
-    yep: ['libs/turn.js'],
+    yep: ['libs/turn.js', 'libs/hammer.min.js'],
     nope: ['libs/turn.html4.min.js'],
     both: ['libs/zoom.min.js', 'scripts/dataInteractive.js', 'scripts/main.js', 'styles/main.css'],
     complete: loadApp

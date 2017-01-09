@@ -296,7 +296,7 @@ function loadPage(page, pageElement) {
 	});
 
 	// Load the page
-	img.attr('src', exhibitionData()[page-1].small);
+	img.attr('src', thumbnailsData[page-1].small);
 
 	//loadRegions(page, pageElement);
 }
@@ -382,7 +382,7 @@ function processRegion(region, regionType) {
 function loadLargePage(page, pageElement) {
 	var img = $('<img />');
 	// console.log
-	// (exhibitionData()[page-1].large);
+	// (thumbnailsData[page-1].large);
 	img.load(function() {
 
 		var prevImg = pageElement.find('img');
@@ -397,7 +397,9 @@ function loadLargePage(page, pageElement) {
 
 	// Loadnew page
 
-	img.attr('src', exhibitionData()[page-1].large);
+	img.attr('src', thumbnailsData[page-1].large);
+
+
 }
 
 /**
@@ -408,7 +410,7 @@ function loadLargePage(page, pageElement) {
  */
 function loadSmallPage(page, pageElement) {
 	var img = pageElement.find('img');
-	// console.log(exhibitionData()[page-1].small);
+	// console.log(thumbnailsData[page-1].small);
 	img.css({
 		width: '100%',
 		height: 'auto'
@@ -417,7 +419,8 @@ function loadSmallPage(page, pageElement) {
 	img.unbind('load');
 	// Loadnew page
 
-	img.attr('src', exhibitionData()[page-1].small);
+	img.attr('src', thumbnailsData[page-1].small);
+
 }
 
 /**
@@ -914,3 +917,21 @@ $('.sideslip').bind("touchend", function () {
 		$('.viewport-phone').animate({left:"0"},"slow")
 	}
 });
+
+//侧滑翻页
+function SlidingFlip(hammertime){
+    hammertime.on('pan', function(ev) {
+        // console.log(ev.isFinal+'==='+ev.deltaX);
+        if( ev.isFinal ){
+            if( ev.deltaX > 0 ){
+                turnPrevious();
+            }else{
+                turnNext();
+            }
+        }
+    });
+}
+
+$(function(){
+	FastClick.attach(document.body);
+})

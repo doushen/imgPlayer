@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>电子教材播放器</title>
+    <title>突破转型 再续鹰戈</title>
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <!-- Place favicon.ico in the root directory -->
     <!-- build:css styles/vendor.css -->
@@ -18,7 +18,6 @@
     
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
-    
     <script src="libs/jquery.min.1.7.js"></script>
     <script src="libs/handlebars.min.js"></script>
     <script src="libs/modernizr.2.5.3.min.js"></script>
@@ -135,18 +134,16 @@
     <div id="outlines">
         {{#each this.catalog}}
         <div class="books-catalog">
-            <h2>
+            <h2 onclick="templateImages({{@index}})">
                 <span class="icon"></span>
                 {{title}}
                 <i class="arrow"></i>
             </h2>
-            <ul>
+            <ul id="menuList_{{@index}}">
                 {{#each secondLevelList}}
                 <li>
                     <h3>{{smallTitle}}</h3>
                     <div class="pic_list">
-                        {{#list content}}
-                        {{/list}}
                     </div>
                 </li>
                 {{/each}}
@@ -164,7 +161,7 @@
     function loadApp() {
 
         ifPrint(2);//是否打印pdf文件
-
+        templateImages(0);
         $('#canvas').fadeIn(1000);
 
         var flipbook = $('.magazine');
@@ -192,7 +189,7 @@
             // Elevation from the edge of the flipbook when turning a page
             elevation: 50,
             // The number of pages
-            pages: exhibitionData().length,
+            pages: thumbnailsData.length,
             when: {
                 turning: function(event, page) {
 

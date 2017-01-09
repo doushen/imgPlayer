@@ -272,14 +272,6 @@ button{
             display: none;
         }
     }
-    .loader {
-        background-image: url(../images/loader.gif);
-        width: 22px;
-        height: 22px;
-        position: absolute;
-        top: 280px;
-        left: 219px;
-    }
     .shadow {
         -webkit-transition: -webkit-box-shadow 0.5s;
         -moz-transition: -moz-box-shadow 0.5s;
@@ -360,6 +352,19 @@ button{
     img{
         height: auto;
     }
+}
+
+.loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 50px;
+    height: 50px;
+    background: url(../images/loader.gif) no-repeat;
+    background-size: 100%;
+    margin-top: -25px;
+    margin-left: -25px;
+    z-index: 9999999;
 }
 
 .animated {
@@ -604,13 +609,14 @@ button{
         position: absolute;
         top: 5px;
         left: 5px;
-        z-index: 13;
+        z-index: 999;
         background: url(../images/icon-sideslip.png) no-repeat center;
         background-size: 65%;
         outline: none;
     }
     .page{
-       background-color:white;
+       ////background-color:white;
+       background-color: #E6E6E6;
        -webkit-box-shadow:0 0 20px rgba(0,0,0,0.2);
         -moz-box-shadow:0 0 20px rgba(0,0,0,0.2);
         -ms-box-shadow:0 0 20px rgba(0,0,0,0.2);
@@ -625,6 +631,11 @@ button{
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
+            position: absolute;
+            top: 50%;
+            transform: translate(0,-50%);
+            -webkit-transform: translate(0,-50%);
+            -moz-transform: translate(0,-50%);
         }
     }
 }
